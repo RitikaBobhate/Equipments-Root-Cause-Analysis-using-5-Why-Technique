@@ -21,7 +21,7 @@ function App() {
                     </Routes>
                 </div>
                 <footer className="app-footer">
-                    <p>Smart 5-Why Root Cause Predictor System | Designed with accessibility in mind</p>
+                    <p> &copy; {new Date().getFullYear()} Smart 5-Why Root Cause Predictor System | Designed with accessibility in mind</p>
                 </footer>
             </div>
         </Router>
