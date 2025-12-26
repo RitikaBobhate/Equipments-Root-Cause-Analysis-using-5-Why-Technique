@@ -59,7 +59,7 @@ body {
 .nav-container {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: right;
     max-width: 1400px;
     margin: 0 auto;
 }
@@ -283,7 +283,7 @@ body {
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 1008px) {
     .nav-container {
         flex-direction: column;
         gap: 1rem;
@@ -308,7 +308,7 @@ body {
     }
 }
 
-@media (min-width: 769px) and (max-width: 1024px) {
+@media (min-width: 2009px) and (max-width: 1024px) {
     .main-content {
         padding: 1.5rem;
     }
