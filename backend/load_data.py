@@ -42,7 +42,7 @@ try:
             
             # ---------------- META ----------------
             "department": item.get("Department", ""),
-            "severity": item.get("Severity", "High", "Critical"),
+            "severity": item.get("Severity", "High"),
             "date_reported": item.get("Date_Reported", datetime.now().strftime("%Y-%m-%d")),
             
             # ---------------- DOMAIN FEATURES ----------------
@@ -52,13 +52,14 @@ try:
             "failure_frequency": item.get("failure_frequency", "medium"),
             
             # ---------------- ADDITIONAL FIELDS (for defaults) ----------------
-            "environment": "clean",  # Default value
-            "operating_load": "normal",  # Default value
-            "recent_maintenance": "yes",  # Default value
-            "source": item.get("Source", "")  # Keep source for reference
+            "environment": "clean",  
+            "operating_load": "normal",  
+            "recent_maintenance": "yes",  
+            "source": item.get("Source", "")  
         }
         
         transformed_data.append(transformed_item)
+    
     
     # ---------------- RESET COLLECTION ----------------
     print("Clearing existing data...")
@@ -79,6 +80,15 @@ try:
     print(f"Total records: {collection.count_documents({})}")
     print(f"Unique root causes: {len(collection.distinct('root_cause'))}")
     print(f"Unique equipment types: {len(collection.distinct('equipment_type'))}")
+    print(f"Severity distribution:")
+    for severity in ["Low", "Medium", "High", "Critical"]:
+        count = collection.count_documents({"severity": severity})
+        print(f"  {severity}: {count}")
+    print(f"Departments involved:")
+    for dept in collection.distinct("department"):
+        count = collection.count_documents({"department": dept})
+        print(f"  {dept}: {count}")
+        
     
     # Show a sample record
     sample = collection.find_one()
