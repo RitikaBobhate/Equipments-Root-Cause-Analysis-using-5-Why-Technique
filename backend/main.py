@@ -336,6 +336,7 @@ def get_analytics_summary():
         "equipment_types": equipment_types,
         "shift_times": shift_times,
         "age_buckets": age_buckets
+        
     }
 
 @app.get("/analytics/trends")
@@ -405,7 +406,7 @@ def get_analytics_plots():
         
         # 1. Severity Distribution
         if 'severity' in df.columns:
-            severity_counts = df['severity'].value_counts()
+            severity_counts = df['severity'].value_counts().head(5)
             severity_chart = {
                 "data": [{
                     "type": "pie",
