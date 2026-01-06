@@ -3,17 +3,20 @@ import os
 from pymongo import MongoClient
 from datetime import datetime
 
+
+
 # MongoDB connection (using your existing connection)
 MONGO_URL = "mongodb+srv://RIL_sys:M(>$s8!p@rootcause-db.wayefpy.mongodb.net/?appName=rootcause-db"
 client = MongoClient(MONGO_URL)
 db = client["fivewhy_db"]
 collection = db["equipment_data"]
+hf =""
 
 print("✅ Connected to MongoDB")
 
 try:
     # Load JSON data
-    with open("equipment_100_domain_enriched.json", encoding="utf-8") as f:
+    with open("equipment_500_domain_enriched.json", encoding="utf-8") as f:
         data = json.load(f)
     
     print(f"✅ Loaded {len(data)} records from JSON file")

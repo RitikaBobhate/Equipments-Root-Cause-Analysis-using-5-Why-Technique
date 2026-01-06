@@ -29,7 +29,14 @@ const Predict = () => {
         setLoading(true);
         try {
             const res = await axios.post('http://127.0.0.1:8000/predict', {
-                description: text,
+                 issue: text,
+                    equipment_type: "Pump",
+                    department: "Maintenance",
+                    severity: "Critical",
+                    shift_time: "night",
+                    machine_age_bucket: "old",
+                    maintenance_gap_days: "overdue",
+                    failure_frequency: "high"
             });
             setResult(res.data);
 

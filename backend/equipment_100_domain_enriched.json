@@ -14,9 +14,9 @@
     "Corrective_Action": "Conduct operator training, revise ergonomics, enforce procedures",
     "Date_Reported": "2023-11-06",
     "Source": "Scientific literature on compressor/motor failures (ScienceDirect)",
-    "shift_time": "night",
-    "machine_age_bucket": "new",
-    "maintenance_gap_days": "moderate",
+    "shift_time": "day",
+    "machine_age_bucket": "old",
+    "maintenance_gap_days": "overdue",
     "failure_frequency": "high"
   },
   {
@@ -35,9 +35,9 @@
     "Date_Reported": "2025-02-15",
     "Source": "OREDA reliability handbook/industry reports (OREDA)",
     "shift_time": "night",
-    "machine_age_bucket": "mid",
-    "maintenance_gap_days": "overdue",
-    "failure_frequency": "high"
+    "machine_age_bucket": "old",
+    "maintenance_gap_days": "moderate",
+    "failure_frequency": "medium"
   },
   {
     "Equipment_ID": "EQ0003",
@@ -54,10 +54,10 @@
     "Corrective_Action": "Perform design review, replace with rated component, provide feedback to OEM",
     "Date_Reported": "2024-12-22",
     "Source": "Kaggle - Predictive Maintenance Datasets (public)",
-    "shift_time": "day",
+    "shift_time": "night",
     "machine_age_bucket": "old",
     "maintenance_gap_days": "overdue",
-    "failure_frequency": "high"
+    "failure_frequency": "low"
   },
   {
     "Equipment_ID": "EQ0004",
@@ -74,10 +74,10 @@
     "Corrective_Action": "Enforce lockout/tagout, log bypass events, install tamper-resistant interlocks",
     "Date_Reported": "2024-04-30",
     "Source": "Scientific literature on compressor/motor failures (ScienceDirect)",
-    "shift_time": "night",
-    "machine_age_bucket": "mid",
-    "maintenance_gap_days": "overdue",
-    "failure_frequency": "high"
+    "shift_time": "day",
+    "machine_age_bucket": "old",
+    "maintenance_gap_days": "moderate",
+    "failure_frequency": "low"
   },
   {
     "Equipment_ID": "EQ0005",
@@ -94,10 +94,10 @@
     "Corrective_Action": "Conduct operator training, revise ergonomics, enforce procedures",
     "Date_Reported": "2023-04-28",
     "Source": "OREDA reliability handbook/industry reports (OREDA)",
-    "shift_time": "day",
+    "shift_time": "night",
     "machine_age_bucket": "mid",
-    "maintenance_gap_days": "moderate",
-    "failure_frequency": "medium"
+    "maintenance_gap_days": "recent",
+    "failure_frequency": "high"
   },
   {
     "Equipment_ID": "EQ0006",
@@ -115,8 +115,8 @@
     "Date_Reported": "2025-09-07",
     "Source": "Kaggle - Predictive Maintenance Datasets (public)",
     "shift_time": "night",
-    "machine_age_bucket": "new",
-    "maintenance_gap_days": "moderate",
+    "machine_age_bucket": "old",
+    "maintenance_gap_days": "recent",
     "failure_frequency": "medium"
   },
   {
@@ -134,10 +134,10 @@
     "Corrective_Action": "Introduce corrosion protection, replace affected parts, inspect materials",
     "Date_Reported": "2025-10-22",
     "Source": "U.S. Chemical Safety Board (CSB) investigations",
-    "shift_time": "night",
-    "machine_age_bucket": "new",
-    "maintenance_gap_days": "overdue",
-    "failure_frequency": "low"
+    "shift_time": "day",
+    "machine_age_bucket": "old",
+    "maintenance_gap_days": "moderate",
+    "failure_frequency": "medium"
   },
   {
     "Equipment_ID": "EQ0008",
@@ -156,8 +156,8 @@
     "Source": "Kaggle - Predictive Maintenance Datasets (public)",
     "shift_time": "day",
     "machine_age_bucket": "new",
-    "maintenance_gap_days": "recent",
-    "failure_frequency": "high"
+    "maintenance_gap_days": "overdue",
+    "failure_frequency": "low"
   },
   {
     "Equipment_ID": "EQ0009",
@@ -175,9 +175,9 @@
     "Date_Reported": "2025-10-04",
     "Source": "U.S. Chemical Safety Board (CSB) investigations",
     "shift_time": "night",
-    "machine_age_bucket": "mid",
+    "machine_age_bucket": "new",
     "maintenance_gap_days": "moderate",
-    "failure_frequency": "low"
+    "failure_frequency": "medium"
   },
   {
     "Equipment_ID": "EQ0010",
@@ -194,10 +194,10 @@
     "Corrective_Action": "Enforce lockout/tagout, log bypass events, install tamper-resistant interlocks",
     "Date_Reported": "2023-01-27",
     "Source": "Kaggle - Predictive Maintenance Datasets (public)",
-    "shift_time": "night",
-    "machine_age_bucket": "old",
-    "maintenance_gap_days": "moderate",
-    "failure_frequency": "medium"
+    "shift_time": "day",
+    "machine_age_bucket": "mid",
+    "maintenance_gap_days": "recent",
+    "failure_frequency": "low"
   },
   {
     "Equipment_ID": "EQ0011",
@@ -215,9 +215,9 @@
     "Date_Reported": "2024-08-27",
     "Source": "Kaggle - Predictive Maintenance Datasets (public)",
     "shift_time": "day",
-    "machine_age_bucket": "new",
-    "maintenance_gap_days": "overdue",
-    "failure_frequency": "medium"
+    "machine_age_bucket": "mid",
+    "maintenance_gap_days": "moderate",
+    "failure_frequency": "high"
   },
   {
     "Equipment_ID": "EQ0012",
@@ -235,7 +235,7 @@
     "Date_Reported": "2024-10-19",
     "Source": "NTSB / AP News industrial incident reports",
     "shift_time": "night",
-    "machine_age_bucket": "new",
+    "machine_age_bucket": "old",
     "maintenance_gap_days": "overdue",
     "failure_frequency": "high"
   },
@@ -254,10 +254,10 @@
     "Corrective_Action": "Improve filtration, change procurement specs, inspect seals",
     "Date_Reported": "2024-08-17",
     "Source": "NTSB / AP News industrial incident reports",
-    "shift_time": "day",
+    "shift_time": "night",
     "machine_age_bucket": "new",
-    "maintenance_gap_days": "recent",
-    "failure_frequency": "medium"
+    "maintenance_gap_days": "overdue",
+    "failure_frequency": "low"
   },
   {
     "Equipment_ID": "EQ0014",
@@ -274,7 +274,7 @@
     "Corrective_Action": "Perform design review, replace with rated component, provide feedback to OEM",
     "Date_Reported": "2024-05-26",
     "Source": "Scientific literature on compressor/motor failures (ScienceDirect)",
-    "shift_time": "day",
+    "shift_time": "night",
     "machine_age_bucket": "mid",
     "maintenance_gap_days": "moderate",
     "failure_frequency": "high"
@@ -294,10 +294,10 @@
     "Corrective_Action": "Revise installation SOP, retrain installers, and add QA signoff",
     "Date_Reported": "2024-11-03",
     "Source": "Kaggle - Predictive Maintenance Datasets (public)",
-    "shift_time": "day",
-    "machine_age_bucket": "new",
-    "maintenance_gap_days": "moderate",
-    "failure_frequency": "medium"
+    "shift_time": "night",
+    "machine_age_bucket": "old",
+    "maintenance_gap_days": "recent",
+    "failure_frequency": "high"
   },
   {
     "Equipment_ID": "EQ0016",
@@ -314,10 +314,10 @@
     "Corrective_Action": "Implement preventive maintenance schedule, CMMS tracking, and training",
     "Date_Reported": "2024-01-06",
     "Source": "U.S. Chemical Safety Board (CSB) investigations",
-    "shift_time": "day",
-    "machine_age_bucket": "old",
-    "maintenance_gap_days": "recent",
-    "failure_frequency": "low"
+    "shift_time": "night",
+    "machine_age_bucket": "new",
+    "maintenance_gap_days": "moderate",
+    "failure_frequency": "medium"
   },
   {
     "Equipment_ID": "EQ0017",
@@ -335,9 +335,9 @@
     "Date_Reported": "2023-09-22",
     "Source": "Scientific literature on compressor/motor failures (ScienceDirect)",
     "shift_time": "day",
-    "machine_age_bucket": "new",
+    "machine_age_bucket": "mid",
     "maintenance_gap_days": "overdue",
-    "failure_frequency": "high"
+    "failure_frequency": "medium"
   },
   {
     "Equipment_ID": "EQ0018",
@@ -354,10 +354,10 @@
     "Corrective_Action": "Conduct operator training, revise ergonomics, enforce procedures",
     "Date_Reported": "2024-06-05",
     "Source": "BIC Magazine / Industry case studies (compressor)",
-    "shift_time": "day",
-    "machine_age_bucket": "mid",
+    "shift_time": "night",
+    "machine_age_bucket": "old",
     "maintenance_gap_days": "recent",
-    "failure_frequency": "low"
+    "failure_frequency": "medium"
   },
   {
     "Equipment_ID": "EQ0019",
@@ -374,10 +374,10 @@
     "Corrective_Action": "Enforce lockout/tagout, log bypass events, install tamper-resistant interlocks",
     "Date_Reported": "2023-08-16",
     "Source": "BIC Magazine / Industry case studies (compressor)",
-    "shift_time": "night",
-    "machine_age_bucket": "mid",
+    "shift_time": "day",
+    "machine_age_bucket": "new",
     "maintenance_gap_days": "moderate",
-    "failure_frequency": "high"
+    "failure_frequency": "medium"
   },
   {
     "Equipment_ID": "EQ0020",
@@ -394,10 +394,10 @@
     "Corrective_Action": "Improve filtration, change procurement specs, inspect seals",
     "Date_Reported": "2024-05-07",
     "Source": "U.S. Chemical Safety Board (CSB) investigations",
-    "shift_time": "night",
-    "machine_age_bucket": "new",
-    "maintenance_gap_days": "overdue",
-    "failure_frequency": "high"
+    "shift_time": "day",
+    "machine_age_bucket": "mid",
+    "maintenance_gap_days": "moderate",
+    "failure_frequency": "low"
   },
   {
     "Equipment_ID": "EQ0021",
@@ -416,8 +416,8 @@
     "Source": "U.S. Chemical Safety Board (CSB) investigations",
     "shift_time": "day",
     "machine_age_bucket": "old",
-    "maintenance_gap_days": "moderate",
-    "failure_frequency": "medium"
+    "maintenance_gap_days": "overdue",
+    "failure_frequency": "high"
   },
   {
     "Equipment_ID": "EQ0022",
@@ -434,7 +434,7 @@
     "Corrective_Action": "Introduce corrosion protection, replace affected parts, inspect materials",
     "Date_Reported": "2023-04-17",
     "Source": "U.S. Chemical Safety Board (CSB) investigations",
-    "shift_time": "day",
+    "shift_time": "night",
     "machine_age_bucket": "new",
     "maintenance_gap_days": "moderate",
     "failure_frequency": "low"
@@ -454,10 +454,10 @@
     "Corrective_Action": "Introduce corrosion protection, replace affected parts, inspect materials",
     "Date_Reported": "2024-10-16",
     "Source": "NTSB / AP News industrial incident reports",
-    "shift_time": "night",
-    "machine_age_bucket": "old",
-    "maintenance_gap_days": "recent",
-    "failure_frequency": "low"
+    "shift_time": "day",
+    "machine_age_bucket": "mid",
+    "maintenance_gap_days": "moderate",
+    "failure_frequency": "medium"
   },
   {
     "Equipment_ID": "EQ0024",
@@ -474,10 +474,10 @@
     "Corrective_Action": "Implement lubrication audits and auto-lube systems",
     "Date_Reported": "2024-02-02",
     "Source": "BIC Magazine / Industry case studies (compressor)",
-    "shift_time": "day",
-    "machine_age_bucket": "old",
-    "maintenance_gap_days": "overdue",
-    "failure_frequency": "medium"
+    "shift_time": "night",
+    "machine_age_bucket": "mid",
+    "maintenance_gap_days": "recent",
+    "failure_frequency": "low"
   },
   {
     "Equipment_ID": "EQ0025",
@@ -494,10 +494,10 @@
     "Corrective_Action": "Enforce lockout/tagout, log bypass events, install tamper-resistant interlocks",
     "Date_Reported": "2024-04-28",
     "Source": "NTSB / AP News industrial incident reports",
-    "shift_time": "day",
-    "machine_age_bucket": "old",
-    "maintenance_gap_days": "recent",
-    "failure_frequency": "low"
+    "shift_time": "night",
+    "machine_age_bucket": "mid",
+    "maintenance_gap_days": "moderate",
+    "failure_frequency": "medium"
   },
   {
     "Equipment_ID": "EQ0026",
@@ -514,10 +514,10 @@
     "Corrective_Action": "Implement lubrication audits and auto-lube systems",
     "Date_Reported": "2023-06-24",
     "Source": "Kaggle - Predictive Maintenance Datasets (public)",
-    "shift_time": "night",
-    "machine_age_bucket": "old",
-    "maintenance_gap_days": "recent",
-    "failure_frequency": "medium"
+    "shift_time": "day",
+    "machine_age_bucket": "new",
+    "maintenance_gap_days": "overdue",
+    "failure_frequency": "low"
   },
   {
     "Equipment_ID": "EQ0027",
@@ -535,9 +535,9 @@
     "Date_Reported": "2023-09-28",
     "Source": "Kaggle - Predictive Maintenance Datasets (public)",
     "shift_time": "night",
-    "machine_age_bucket": "old",
-    "maintenance_gap_days": "overdue",
-    "failure_frequency": "high"
+    "machine_age_bucket": "mid",
+    "maintenance_gap_days": "recent",
+    "failure_frequency": "low"
   },
   {
     "Equipment_ID": "EQ0028",
@@ -554,10 +554,10 @@
     "Corrective_Action": "Introduce corrosion protection, replace affected parts, inspect materials",
     "Date_Reported": "2024-03-30",
     "Source": "Scientific literature on compressor/motor failures (ScienceDirect)",
-    "shift_time": "night",
+    "shift_time": "day",
     "machine_age_bucket": "old",
-    "maintenance_gap_days": "moderate",
-    "failure_frequency": "medium"
+    "maintenance_gap_days": "recent",
+    "failure_frequency": "low"
   },
   {
     "Equipment_ID": "EQ0029",
@@ -576,8 +576,8 @@
     "Source": "OREDA reliability handbook/industry reports (OREDA)",
     "shift_time": "day",
     "machine_age_bucket": "new",
-    "maintenance_gap_days": "overdue",
-    "failure_frequency": "low"
+    "maintenance_gap_days": "recent",
+    "failure_frequency": "medium"
   },
   {
     "Equipment_ID": "EQ0030",
@@ -594,10 +594,10 @@
     "Corrective_Action": "Introduce corrosion protection, replace affected parts, inspect materials",
     "Date_Reported": "2023-03-16",
     "Source": "NTSB / AP News industrial incident reports",
-    "shift_time": "day",
+    "shift_time": "night",
     "machine_age_bucket": "new",
-    "maintenance_gap_days": "overdue",
-    "failure_frequency": "medium"
+    "maintenance_gap_days": "recent",
+    "failure_frequency": "low"
   },
   {
     "Equipment_ID": "EQ0031",
@@ -615,9 +615,9 @@
     "Date_Reported": "2024-02-07",
     "Source": "Scientific literature on compressor/motor failures (ScienceDirect)",
     "shift_time": "night",
-    "machine_age_bucket": "old",
-    "maintenance_gap_days": "moderate",
-    "failure_frequency": "high"
+    "machine_age_bucket": "mid",
+    "maintenance_gap_days": "overdue",
+    "failure_frequency": "low"
   },
   {
     "Equipment_ID": "EQ0032",
@@ -635,7 +635,7 @@
     "Date_Reported": "2023-05-24",
     "Source": "BIC Magazine / Industry case studies (compressor)",
     "shift_time": "day",
-    "machine_age_bucket": "new",
+    "machine_age_bucket": "mid",
     "maintenance_gap_days": "moderate",
     "failure_frequency": "low"
   },
@@ -654,10 +654,10 @@
     "Corrective_Action": "Implement preventive maintenance schedule, CMMS tracking, and training",
     "Date_Reported": "2023-10-04",
     "Source": "BIC Magazine / Industry case studies (compressor)",
-    "shift_time": "day",
-    "machine_age_bucket": "mid",
+    "shift_time": "night",
+    "machine_age_bucket": "new",
     "maintenance_gap_days": "moderate",
-    "failure_frequency": "high"
+    "failure_frequency": "medium"
   },
   {
     "Equipment_ID": "EQ0034",
@@ -674,9 +674,9 @@
     "Corrective_Action": "Implement lubrication audits and auto-lube systems",
     "Date_Reported": "2023-05-12",
     "Source": "BIC Magazine / Industry case studies (compressor)",
-    "shift_time": "day",
+    "shift_time": "night",
     "machine_age_bucket": "mid",
-    "maintenance_gap_days": "overdue",
+    "maintenance_gap_days": "recent",
     "failure_frequency": "high"
   },
   {
@@ -695,9 +695,9 @@
     "Date_Reported": "2025-10-05",
     "Source": "Scientific literature on compressor/motor failures (ScienceDirect)",
     "shift_time": "day",
-    "machine_age_bucket": "mid",
-    "maintenance_gap_days": "recent",
-    "failure_frequency": "high"
+    "machine_age_bucket": "new",
+    "maintenance_gap_days": "overdue",
+    "failure_frequency": "low"
   },
   {
     "Equipment_ID": "EQ0036",
@@ -714,10 +714,10 @@
     "Corrective_Action": "Install surge protection, UPS, and monitor power quality",
     "Date_Reported": "2023-02-15",
     "Source": "U.S. Chemical Safety Board (CSB) investigations",
-    "shift_time": "night",
-    "machine_age_bucket": "new",
-    "maintenance_gap_days": "moderate",
-    "failure_frequency": "medium"
+    "shift_time": "day",
+    "machine_age_bucket": "mid",
+    "maintenance_gap_days": "recent",
+    "failure_frequency": "high"
   },
   {
     "Equipment_ID": "EQ0037",
@@ -734,10 +734,10 @@
     "Corrective_Action": "Implement lubrication audits and auto-lube systems",
     "Date_Reported": "2025-08-02",
     "Source": "Kaggle - Predictive Maintenance Datasets (public)",
-    "shift_time": "night",
-    "machine_age_bucket": "new",
-    "maintenance_gap_days": "overdue",
-    "failure_frequency": "medium"
+    "shift_time": "day",
+    "machine_age_bucket": "old",
+    "maintenance_gap_days": "recent",
+    "failure_frequency": "low"
   },
   {
     "Equipment_ID": "EQ0038",
@@ -756,8 +756,8 @@
     "Source": "Scientific literature on compressor/motor failures (ScienceDirect)",
     "shift_time": "night",
     "machine_age_bucket": "new",
-    "maintenance_gap_days": "recent",
-    "failure_frequency": "low"
+    "maintenance_gap_days": "overdue",
+    "failure_frequency": "high"
   },
   {
     "Equipment_ID": "EQ0039",
@@ -775,9 +775,9 @@
     "Date_Reported": "2023-08-11",
     "Source": "Kaggle - Predictive Maintenance Datasets (public)",
     "shift_time": "night",
-    "machine_age_bucket": "old",
-    "maintenance_gap_days": "overdue",
-    "failure_frequency": "high"
+    "machine_age_bucket": "mid",
+    "maintenance_gap_days": "recent",
+    "failure_frequency": "low"
   },
   {
     "Equipment_ID": "EQ0040",
@@ -794,10 +794,10 @@
     "Corrective_Action": "Implement lubrication audits and auto-lube systems",
     "Date_Reported": "2024-04-21",
     "Source": "OREDA reliability handbook/industry reports (OREDA)",
-    "shift_time": "night",
+    "shift_time": "day",
     "machine_age_bucket": "mid",
     "maintenance_gap_days": "recent",
-    "failure_frequency": "low"
+    "failure_frequency": "medium"
   },
   {
     "Equipment_ID": "EQ0041",
@@ -814,9 +814,9 @@
     "Corrective_Action": "Install surge protection, UPS, and monitor power quality",
     "Date_Reported": "2024-09-06",
     "Source": "NTSB / AP News industrial incident reports",
-    "shift_time": "night",
-    "machine_age_bucket": "mid",
-    "maintenance_gap_days": "overdue",
+    "shift_time": "day",
+    "machine_age_bucket": "new",
+    "maintenance_gap_days": "moderate",
     "failure_frequency": "medium"
   },
   {
@@ -834,10 +834,10 @@
     "Corrective_Action": "Revise installation SOP, retrain installers, and add QA signoff",
     "Date_Reported": "2023-12-29",
     "Source": "Scientific literature on compressor/motor failures (ScienceDirect)",
-    "shift_time": "night",
+    "shift_time": "day",
     "machine_age_bucket": "old",
-    "maintenance_gap_days": "recent",
-    "failure_frequency": "low"
+    "maintenance_gap_days": "overdue",
+    "failure_frequency": "high"
   },
   {
     "Equipment_ID": "EQ0043",
@@ -854,8 +854,8 @@
     "Corrective_Action": "Introduce corrosion protection, replace affected parts, inspect materials",
     "Date_Reported": "2023-08-26",
     "Source": "NTSB / AP News industrial incident reports",
-    "shift_time": "night",
-    "machine_age_bucket": "new",
+    "shift_time": "day",
+    "machine_age_bucket": "old",
     "maintenance_gap_days": "overdue",
     "failure_frequency": "low"
   },
@@ -875,8 +875,8 @@
     "Date_Reported": "2024-08-10",
     "Source": "U.S. Chemical Safety Board (CSB) investigations",
     "shift_time": "night",
-    "machine_age_bucket": "mid",
-    "maintenance_gap_days": "overdue",
+    "machine_age_bucket": "old",
+    "maintenance_gap_days": "recent",
     "failure_frequency": "medium"
   },
   {
@@ -894,10 +894,10 @@
     "Corrective_Action": "Conduct operator training, revise ergonomics, enforce procedures",
     "Date_Reported": "2024-03-29",
     "Source": "BIC Magazine / Industry case studies (compressor)",
-    "shift_time": "day",
+    "shift_time": "night",
     "machine_age_bucket": "old",
-    "maintenance_gap_days": "overdue",
-    "failure_frequency": "high"
+    "maintenance_gap_days": "recent",
+    "failure_frequency": "low"
   },
   {
     "Equipment_ID": "EQ0046",
@@ -915,7 +915,7 @@
     "Date_Reported": "2025-11-29",
     "Source": "BIC Magazine / Industry case studies (compressor)",
     "shift_time": "night",
-    "machine_age_bucket": "mid",
+    "machine_age_bucket": "old",
     "maintenance_gap_days": "moderate",
     "failure_frequency": "medium"
   },
@@ -935,8 +935,8 @@
     "Date_Reported": "2025-07-16",
     "Source": "Scientific literature on compressor/motor failures (ScienceDirect)",
     "shift_time": "night",
-    "machine_age_bucket": "new",
-    "maintenance_gap_days": "recent",
+    "machine_age_bucket": "old",
+    "maintenance_gap_days": "overdue",
     "failure_frequency": "medium"
   },
   {
@@ -954,9 +954,9 @@
     "Corrective_Action": "Enforce calibration schedule, add redundancy and alerting",
     "Date_Reported": "2024-11-07",
     "Source": "BIC Magazine / Industry case studies (compressor)",
-    "shift_time": "night",
+    "shift_time": "day",
     "machine_age_bucket": "new",
-    "maintenance_gap_days": "moderate",
+    "maintenance_gap_days": "overdue",
     "failure_frequency": "high"
   },
   {
@@ -974,10 +974,10 @@
     "Corrective_Action": "Revise installation SOP, retrain installers, and add QA signoff",
     "Date_Reported": "2024-11-24",
     "Source": "Scientific literature on compressor/motor failures (ScienceDirect)",
-    "shift_time": "night",
+    "shift_time": "day",
     "machine_age_bucket": "mid",
-    "maintenance_gap_days": "moderate",
-    "failure_frequency": "medium"
+    "maintenance_gap_days": "overdue",
+    "failure_frequency": "low"
   },
   {
     "Equipment_ID": "EQ0050",
@@ -995,9 +995,9 @@
     "Date_Reported": "2023-02-12",
     "Source": "U.S. Chemical Safety Board (CSB) investigations",
     "shift_time": "night",
-    "machine_age_bucket": "mid",
+    "machine_age_bucket": "old",
     "maintenance_gap_days": "overdue",
-    "failure_frequency": "low"
+    "failure_frequency": "medium"
   },
   {
     "Equipment_ID": "EQ0051",
@@ -1014,10 +1014,10 @@
     "Corrective_Action": "Revise installation SOP, retrain installers, and add QA signoff",
     "Date_Reported": "2025-04-04",
     "Source": "Scientific literature on compressor/motor failures (ScienceDirect)",
-    "shift_time": "day",
-    "machine_age_bucket": "mid",
+    "shift_time": "night",
+    "machine_age_bucket": "new",
     "maintenance_gap_days": "recent",
-    "failure_frequency": "low"
+    "failure_frequency": "medium"
   },
   {
     "Equipment_ID": "EQ0052",
@@ -1034,10 +1034,10 @@
     "Corrective_Action": "Implement lubrication audits and auto-lube systems",
     "Date_Reported": "2024-05-30",
     "Source": "NTSB / AP News industrial incident reports",
-    "shift_time": "day",
-    "machine_age_bucket": "mid",
+    "shift_time": "night",
+    "machine_age_bucket": "old",
     "maintenance_gap_days": "recent",
-    "failure_frequency": "high"
+    "failure_frequency": "low"
   },
   {
     "Equipment_ID": "EQ0053",
@@ -1054,8 +1054,8 @@
     "Corrective_Action": "Improve filtration, change procurement specs, inspect seals",
     "Date_Reported": "2024-11-07",
     "Source": "OREDA reliability handbook/industry reports (OREDA)",
-    "shift_time": "night",
-    "machine_age_bucket": "old",
+    "shift_time": "day",
+    "machine_age_bucket": "new",
     "maintenance_gap_days": "overdue",
     "failure_frequency": "high"
   },
@@ -1074,7 +1074,7 @@
     "Corrective_Action": "Improve filtration, change procurement specs, inspect seals",
     "Date_Reported": "2025-02-12",
     "Source": "BIC Magazine / Industry case studies (compressor)",
-    "shift_time": "night",
+    "shift_time": "day",
     "machine_age_bucket": "new",
     "maintenance_gap_days": "moderate",
     "failure_frequency": "high"
@@ -1095,8 +1095,8 @@
     "Date_Reported": "2024-02-09",
     "Source": "NTSB / AP News industrial incident reports",
     "shift_time": "day",
-    "machine_age_bucket": "old",
-    "maintenance_gap_days": "recent",
+    "machine_age_bucket": "new",
+    "maintenance_gap_days": "moderate",
     "failure_frequency": "medium"
   },
   {
@@ -1116,8 +1116,8 @@
     "Source": "Kaggle - Predictive Maintenance Datasets (public)",
     "shift_time": "night",
     "machine_age_bucket": "mid",
-    "maintenance_gap_days": "overdue",
-    "failure_frequency": "low"
+    "maintenance_gap_days": "moderate",
+    "failure_frequency": "medium"
   },
   {
     "Equipment_ID": "EQ0057",
@@ -1135,7 +1135,7 @@
     "Date_Reported": "2023-11-21",
     "Source": "Scientific literature on compressor/motor failures (ScienceDirect)",
     "shift_time": "night",
-    "machine_age_bucket": "old",
+    "machine_age_bucket": "new",
     "maintenance_gap_days": "recent",
     "failure_frequency": "high"
   },
@@ -1154,10 +1154,10 @@
     "Corrective_Action": "Implement preventive maintenance schedule, CMMS tracking, and training",
     "Date_Reported": "2023-04-26",
     "Source": "Scientific literature on compressor/motor failures (ScienceDirect)",
-    "shift_time": "night",
+    "shift_time": "day",
     "machine_age_bucket": "mid",
     "maintenance_gap_days": "moderate",
-    "failure_frequency": "high"
+    "failure_frequency": "medium"
   },
   {
     "Equipment_ID": "EQ0059",
@@ -1174,9 +1174,9 @@
     "Corrective_Action": "Perform design review, replace with rated component, provide feedback to OEM",
     "Date_Reported": "2024-09-30",
     "Source": "U.S. Chemical Safety Board (CSB) investigations",
-    "shift_time": "day",
-    "machine_age_bucket": "new",
-    "maintenance_gap_days": "recent",
+    "shift_time": "night",
+    "machine_age_bucket": "mid",
+    "maintenance_gap_days": "overdue",
     "failure_frequency": "medium"
   },
   {
@@ -1194,9 +1194,9 @@
     "Corrective_Action": "Implement lubrication audits and auto-lube systems",
     "Date_Reported": "2023-11-11",
     "Source": "BIC Magazine / Industry case studies (compressor)",
-    "shift_time": "day",
-    "machine_age_bucket": "old",
-    "maintenance_gap_days": "moderate",
+    "shift_time": "night",
+    "machine_age_bucket": "mid",
+    "maintenance_gap_days": "overdue",
     "failure_frequency": "low"
   },
   {
@@ -1214,10 +1214,10 @@
     "Corrective_Action": "Introduce corrosion protection, replace affected parts, inspect materials",
     "Date_Reported": "2025-09-29",
     "Source": "U.S. Chemical Safety Board (CSB) investigations",
-    "shift_time": "night",
-    "machine_age_bucket": "new",
-    "maintenance_gap_days": "overdue",
-    "failure_frequency": "low"
+    "shift_time": "day",
+    "machine_age_bucket": "old",
+    "maintenance_gap_days": "recent",
+    "failure_frequency": "medium"
   },
   {
     "Equipment_ID": "EQ0062",
@@ -1235,9 +1235,9 @@
     "Date_Reported": "2023-01-01",
     "Source": "U.S. Chemical Safety Board (CSB) investigations",
     "shift_time": "night",
-    "machine_age_bucket": "new",
+    "machine_age_bucket": "mid",
     "maintenance_gap_days": "recent",
-    "failure_frequency": "high"
+    "failure_frequency": "medium"
   },
   {
     "Equipment_ID": "EQ0063",
@@ -1275,8 +1275,8 @@
     "Date_Reported": "2023-09-24",
     "Source": "NTSB / AP News industrial incident reports",
     "shift_time": "night",
-    "machine_age_bucket": "mid",
-    "maintenance_gap_days": "moderate",
+    "machine_age_bucket": "old",
+    "maintenance_gap_days": "overdue",
     "failure_frequency": "medium"
   },
   {
@@ -1294,9 +1294,9 @@
     "Corrective_Action": "Install surge protection, UPS, and monitor power quality",
     "Date_Reported": "2023-11-09",
     "Source": "U.S. Chemical Safety Board (CSB) investigations",
-    "shift_time": "day",
-    "machine_age_bucket": "new",
-    "maintenance_gap_days": "recent",
+    "shift_time": "night",
+    "machine_age_bucket": "old",
+    "maintenance_gap_days": "overdue",
     "failure_frequency": "high"
   },
   {
@@ -1314,10 +1314,10 @@
     "Corrective_Action": "Enforce lockout/tagout, log bypass events, install tamper-resistant interlocks",
     "Date_Reported": "2024-12-24",
     "Source": "NTSB / AP News industrial incident reports",
-    "shift_time": "day",
+    "shift_time": "night",
     "machine_age_bucket": "mid",
-    "maintenance_gap_days": "recent",
-    "failure_frequency": "low"
+    "maintenance_gap_days": "overdue",
+    "failure_frequency": "medium"
   },
   {
     "Equipment_ID": "EQ0067",
@@ -1334,10 +1334,10 @@
     "Corrective_Action": "Enforce calibration schedule, add redundancy and alerting",
     "Date_Reported": "2024-03-02",
     "Source": "BIC Magazine / Industry case studies (compressor)",
-    "shift_time": "night",
-    "machine_age_bucket": "new",
-    "maintenance_gap_days": "overdue",
-    "failure_frequency": "low"
+    "shift_time": "day",
+    "machine_age_bucket": "mid",
+    "maintenance_gap_days": "recent",
+    "failure_frequency": "high"
   },
   {
     "Equipment_ID": "EQ0068",
@@ -1355,9 +1355,9 @@
     "Date_Reported": "2025-03-21",
     "Source": "NTSB / AP News industrial incident reports",
     "shift_time": "day",
-    "machine_age_bucket": "old",
+    "machine_age_bucket": "new",
     "maintenance_gap_days": "moderate",
-    "failure_frequency": "high"
+    "failure_frequency": "medium"
   },
   {
     "Equipment_ID": "EQ0069",
@@ -1374,10 +1374,10 @@
     "Corrective_Action": "Revise installation SOP, retrain installers, and add QA signoff",
     "Date_Reported": "2023-06-28",
     "Source": "Kaggle - Predictive Maintenance Datasets (public)",
-    "shift_time": "day",
-    "machine_age_bucket": "mid",
-    "maintenance_gap_days": "recent",
-    "failure_frequency": "medium"
+    "shift_time": "night",
+    "machine_age_bucket": "new",
+    "maintenance_gap_days": "moderate",
+    "failure_frequency": "low"
   },
   {
     "Equipment_ID": "EQ0070",
@@ -1394,10 +1394,10 @@
     "Corrective_Action": "Conduct operator training, revise ergonomics, enforce procedures",
     "Date_Reported": "2024-04-24",
     "Source": "U.S. Chemical Safety Board (CSB) investigations",
-    "shift_time": "night",
-    "machine_age_bucket": "old",
+    "shift_time": "day",
+    "machine_age_bucket": "new",
     "maintenance_gap_days": "recent",
-    "failure_frequency": "high"
+    "failure_frequency": "medium"
   },
   {
     "Equipment_ID": "EQ0071",
@@ -1414,10 +1414,10 @@
     "Corrective_Action": "Conduct operator training, revise ergonomics, enforce procedures",
     "Date_Reported": "2024-12-11",
     "Source": "Scientific literature on compressor/motor failures (ScienceDirect)",
-    "shift_time": "night",
-    "machine_age_bucket": "mid",
-    "maintenance_gap_days": "recent",
-    "failure_frequency": "medium"
+    "shift_time": "day",
+    "machine_age_bucket": "new",
+    "maintenance_gap_days": "overdue",
+    "failure_frequency": "high"
   },
   {
     "Equipment_ID": "EQ0072",
@@ -1435,9 +1435,9 @@
     "Date_Reported": "2025-07-10",
     "Source": "NTSB / AP News industrial incident reports",
     "shift_time": "day",
-    "machine_age_bucket": "mid",
-    "maintenance_gap_days": "moderate",
-    "failure_frequency": "medium"
+    "machine_age_bucket": "new",
+    "maintenance_gap_days": "overdue",
+    "failure_frequency": "low"
   },
   {
     "Equipment_ID": "EQ0073",
@@ -1455,9 +1455,9 @@
     "Date_Reported": "2025-05-25",
     "Source": "U.S. Chemical Safety Board (CSB) investigations",
     "shift_time": "night",
-    "machine_age_bucket": "new",
-    "maintenance_gap_days": "overdue",
-    "failure_frequency": "high"
+    "machine_age_bucket": "old",
+    "maintenance_gap_days": "moderate",
+    "failure_frequency": "medium"
   },
   {
     "Equipment_ID": "EQ0074",
@@ -1475,9 +1475,9 @@
     "Date_Reported": "2024-07-09",
     "Source": "Scientific literature on compressor/motor failures (ScienceDirect)",
     "shift_time": "day",
-    "machine_age_bucket": "mid",
+    "machine_age_bucket": "old",
     "maintenance_gap_days": "recent",
-    "failure_frequency": "medium"
+    "failure_frequency": "low"
   },
   {
     "Equipment_ID": "EQ0075",
@@ -1494,10 +1494,10 @@
     "Corrective_Action": "Enforce lockout/tagout, log bypass events, install tamper-resistant interlocks",
     "Date_Reported": "2025-01-27",
     "Source": "Scientific literature on compressor/motor failures (ScienceDirect)",
-    "shift_time": "night",
-    "machine_age_bucket": "mid",
-    "maintenance_gap_days": "overdue",
-    "failure_frequency": "high"
+    "shift_time": "day",
+    "machine_age_bucket": "new",
+    "maintenance_gap_days": "recent",
+    "failure_frequency": "low"
   },
   {
     "Equipment_ID": "EQ0076",
@@ -1515,9 +1515,9 @@
     "Date_Reported": "2024-07-17",
     "Source": "BIC Magazine / Industry case studies (compressor)",
     "shift_time": "day",
-    "machine_age_bucket": "old",
-    "maintenance_gap_days": "overdue",
-    "failure_frequency": "high"
+    "machine_age_bucket": "mid",
+    "maintenance_gap_days": "moderate",
+    "failure_frequency": "low"
   },
   {
     "Equipment_ID": "EQ0077",
@@ -1535,9 +1535,9 @@
     "Date_Reported": "2025-01-07",
     "Source": "OREDA reliability handbook/industry reports (OREDA)",
     "shift_time": "night",
-    "machine_age_bucket": "mid",
-    "maintenance_gap_days": "moderate",
-    "failure_frequency": "low"
+    "machine_age_bucket": "new",
+    "maintenance_gap_days": "overdue",
+    "failure_frequency": "medium"
   },
   {
     "Equipment_ID": "EQ0078",
@@ -1555,7 +1555,7 @@
     "Date_Reported": "2025-03-23",
     "Source": "BIC Magazine / Industry case studies (compressor)",
     "shift_time": "night",
-    "machine_age_bucket": "old",
+    "machine_age_bucket": "mid",
     "maintenance_gap_days": "overdue",
     "failure_frequency": "low"
   },
@@ -1576,8 +1576,8 @@
     "Source": "U.S. Chemical Safety Board (CSB) investigations",
     "shift_time": "day",
     "machine_age_bucket": "old",
-    "maintenance_gap_days": "recent",
-    "failure_frequency": "medium"
+    "maintenance_gap_days": "moderate",
+    "failure_frequency": "high"
   },
   {
     "Equipment_ID": "EQ0080",
@@ -1594,10 +1594,10 @@
     "Corrective_Action": "Revise installation SOP, retrain installers, and add QA signoff",
     "Date_Reported": "2024-08-21",
     "Source": "OREDA reliability handbook/industry reports (OREDA)",
-    "shift_time": "day",
-    "machine_age_bucket": "mid",
+    "shift_time": "night",
+    "machine_age_bucket": "new",
     "maintenance_gap_days": "overdue",
-    "failure_frequency": "low"
+    "failure_frequency": "high"
   },
   {
     "Equipment_ID": "EQ0081",
@@ -1614,10 +1614,10 @@
     "Corrective_Action": "Introduce corrosion protection, replace affected parts, inspect materials",
     "Date_Reported": "2023-04-29",
     "Source": "Scientific literature on compressor/motor failures (ScienceDirect)",
-    "shift_time": "day",
-    "machine_age_bucket": "new",
-    "maintenance_gap_days": "overdue",
-    "failure_frequency": "medium"
+    "shift_time": "night",
+    "machine_age_bucket": "mid",
+    "maintenance_gap_days": "moderate",
+    "failure_frequency": "high"
   },
   {
     "Equipment_ID": "EQ0082",
@@ -1634,10 +1634,10 @@
     "Corrective_Action": "Revise installation SOP, retrain installers, and add QA signoff",
     "Date_Reported": "2023-06-15",
     "Source": "BIC Magazine / Industry case studies (compressor)",
-    "shift_time": "night",
+    "shift_time": "day",
     "machine_age_bucket": "mid",
-    "maintenance_gap_days": "overdue",
-    "failure_frequency": "medium"
+    "maintenance_gap_days": "recent",
+    "failure_frequency": "low"
   },
   {
     "Equipment_ID": "EQ0083",
@@ -1654,9 +1654,9 @@
     "Corrective_Action": "Improve filtration, change procurement specs, inspect seals",
     "Date_Reported": "2025-08-27",
     "Source": "Kaggle - Predictive Maintenance Datasets (public)",
-    "shift_time": "day",
-    "machine_age_bucket": "old",
-    "maintenance_gap_days": "recent",
+    "shift_time": "night",
+    "machine_age_bucket": "new",
+    "maintenance_gap_days": "overdue",
     "failure_frequency": "high"
   },
   {
@@ -1674,8 +1674,8 @@
     "Corrective_Action": "Enforce calibration schedule, add redundancy and alerting",
     "Date_Reported": "2024-02-26",
     "Source": "BIC Magazine / Industry case studies (compressor)",
-    "shift_time": "day",
-    "machine_age_bucket": "mid",
+    "shift_time": "night",
+    "machine_age_bucket": "old",
     "maintenance_gap_days": "overdue",
     "failure_frequency": "low"
   },
@@ -1694,10 +1694,10 @@
     "Corrective_Action": "Improve filtration, change procurement specs, inspect seals",
     "Date_Reported": "2023-12-04",
     "Source": "BIC Magazine / Industry case studies (compressor)",
-    "shift_time": "day",
+    "shift_time": "night",
     "machine_age_bucket": "old",
-    "maintenance_gap_days": "moderate",
-    "failure_frequency": "low"
+    "maintenance_gap_days": "overdue",
+    "failure_frequency": "medium"
   },
   {
     "Equipment_ID": "EQ0086",
@@ -1714,10 +1714,10 @@
     "Corrective_Action": "Perform design review, replace with rated component, provide feedback to OEM",
     "Date_Reported": "2025-05-03",
     "Source": "OREDA reliability handbook/industry reports (OREDA)",
-    "shift_time": "night",
-    "machine_age_bucket": "old",
+    "shift_time": "day",
+    "machine_age_bucket": "new",
     "maintenance_gap_days": "overdue",
-    "failure_frequency": "medium"
+    "failure_frequency": "low"
   },
   {
     "Equipment_ID": "EQ0087",
@@ -1735,9 +1735,9 @@
     "Date_Reported": "2023-01-31",
     "Source": "NTSB / AP News industrial incident reports",
     "shift_time": "day",
-    "machine_age_bucket": "mid",
-    "maintenance_gap_days": "moderate",
-    "failure_frequency": "medium"
+    "machine_age_bucket": "new",
+    "maintenance_gap_days": "overdue",
+    "failure_frequency": "low"
   },
   {
     "Equipment_ID": "EQ0088",
@@ -1754,8 +1754,8 @@
     "Corrective_Action": "Enforce calibration schedule, add redundancy and alerting",
     "Date_Reported": "2024-09-06",
     "Source": "OREDA reliability handbook/industry reports (OREDA)",
-    "shift_time": "day",
-    "machine_age_bucket": "new",
+    "shift_time": "night",
+    "machine_age_bucket": "old",
     "maintenance_gap_days": "recent",
     "failure_frequency": "medium"
   },
@@ -1775,8 +1775,8 @@
     "Date_Reported": "2025-09-28",
     "Source": "NTSB / AP News industrial incident reports",
     "shift_time": "night",
-    "machine_age_bucket": "new",
-    "maintenance_gap_days": "moderate",
+    "machine_age_bucket": "mid",
+    "maintenance_gap_days": "overdue",
     "failure_frequency": "high"
   },
   {
@@ -1794,10 +1794,10 @@
     "Corrective_Action": "Introduce corrosion protection, replace affected parts, inspect materials",
     "Date_Reported": "2024-10-12",
     "Source": "OREDA reliability handbook/industry reports (OREDA)",
-    "shift_time": "day",
+    "shift_time": "night",
     "machine_age_bucket": "new",
-    "maintenance_gap_days": "moderate",
-    "failure_frequency": "low"
+    "maintenance_gap_days": "overdue",
+    "failure_frequency": "high"
   },
   {
     "Equipment_ID": "EQ0091",
@@ -1814,10 +1814,10 @@
     "Corrective_Action": "Perform design review, replace with rated component, provide feedback to OEM",
     "Date_Reported": "2025-09-02",
     "Source": "NTSB / AP News industrial incident reports",
-    "shift_time": "day",
-    "machine_age_bucket": "old",
+    "shift_time": "night",
+    "machine_age_bucket": "new",
     "maintenance_gap_days": "recent",
-    "failure_frequency": "high"
+    "failure_frequency": "medium"
   },
   {
     "Equipment_ID": "EQ0092",
@@ -1835,7 +1835,7 @@
     "Date_Reported": "2023-07-17",
     "Source": "NTSB / AP News industrial incident reports",
     "shift_time": "day",
-    "machine_age_bucket": "new",
+    "machine_age_bucket": "old",
     "maintenance_gap_days": "overdue",
     "failure_frequency": "low"
   },
@@ -1854,10 +1854,10 @@
     "Corrective_Action": "Revise installation SOP, retrain installers, and add QA signoff",
     "Date_Reported": "2025-07-07",
     "Source": "BIC Magazine / Industry case studies (compressor)",
-    "shift_time": "night",
+    "shift_time": "day",
     "machine_age_bucket": "old",
-    "maintenance_gap_days": "recent",
-    "failure_frequency": "medium"
+    "maintenance_gap_days": "moderate",
+    "failure_frequency": "high"
   },
   {
     "Equipment_ID": "EQ0094",
@@ -1874,10 +1874,10 @@
     "Corrective_Action": "Perform design review, replace with rated component, provide feedback to OEM",
     "Date_Reported": "2024-02-13",
     "Source": "BIC Magazine / Industry case studies (compressor)",
-    "shift_time": "day",
-    "machine_age_bucket": "mid",
+    "shift_time": "night",
+    "machine_age_bucket": "new",
     "maintenance_gap_days": "moderate",
-    "failure_frequency": "high"
+    "failure_frequency": "medium"
   },
   {
     "Equipment_ID": "EQ0095",
@@ -1895,7 +1895,7 @@
     "Date_Reported": "2023-08-19",
     "Source": "U.S. Chemical Safety Board (CSB) investigations",
     "shift_time": "night",
-    "machine_age_bucket": "old",
+    "machine_age_bucket": "new",
     "maintenance_gap_days": "moderate",
     "failure_frequency": "high"
   },
@@ -1916,8 +1916,8 @@
     "Source": "OREDA reliability handbook/industry reports (OREDA)",
     "shift_time": "night",
     "machine_age_bucket": "mid",
-    "maintenance_gap_days": "overdue",
-    "failure_frequency": "low"
+    "maintenance_gap_days": "recent",
+    "failure_frequency": "medium"
   },
   {
     "Equipment_ID": "EQ0097",
@@ -1934,9 +1934,9 @@
     "Corrective_Action": "Enforce calibration schedule, add redundancy and alerting",
     "Date_Reported": "2023-11-22",
     "Source": "OREDA reliability handbook/industry reports (OREDA)",
-    "shift_time": "night",
-    "machine_age_bucket": "new",
-    "maintenance_gap_days": "moderate",
+    "shift_time": "day",
+    "machine_age_bucket": "old",
+    "maintenance_gap_days": "recent",
     "failure_frequency": "low"
   },
   {
@@ -1954,9 +1954,9 @@
     "Corrective_Action": "Revise installation SOP, retrain installers, and add QA signoff",
     "Date_Reported": "2024-01-11",
     "Source": "U.S. Chemical Safety Board (CSB) investigations",
-    "shift_time": "day",
-    "machine_age_bucket": "mid",
-    "maintenance_gap_days": "moderate",
+    "shift_time": "night",
+    "machine_age_bucket": "old",
+    "maintenance_gap_days": "recent",
     "failure_frequency": "high"
   },
   {
@@ -1975,7 +1975,7 @@
     "Date_Reported": "2025-06-10",
     "Source": "NTSB / AP News industrial incident reports",
     "shift_time": "day",
-    "machine_age_bucket": "old",
+    "machine_age_bucket": "new",
     "maintenance_gap_days": "overdue",
     "failure_frequency": "low"
   },
@@ -1994,9 +1994,9 @@
     "Corrective_Action": "Enforce lockout/tagout, log bypass events, install tamper-resistant interlocks",
     "Date_Reported": "2025-07-17",
     "Source": "NTSB / AP News industrial incident reports",
-    "shift_time": "day",
-    "machine_age_bucket": "new",
-    "maintenance_gap_days": "overdue",
-    "failure_frequency": "high"
+    "shift_time": "night",
+    "machine_age_bucket": "old",
+    "maintenance_gap_days": "recent",
+    "failure_frequency": "low"
   }
 ]

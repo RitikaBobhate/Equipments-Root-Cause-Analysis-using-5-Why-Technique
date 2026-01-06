@@ -188,3 +188,8 @@
     display: flex !important;
   }
 }
+.logo-image {
+    width: 100px;
+    height: auto;
+    border-radius: 8px;
+}

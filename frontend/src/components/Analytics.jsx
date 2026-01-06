@@ -123,6 +123,8 @@ const Analytics = () => {
                             {/* Add severity trend chart */}
                             <div className="placeholder-chart">
                                 <p>Severity trend visualization would appear here</p>
+                                {renderPlot(plots.severity_trend_chart)}
+                                
                             </div>
                         </div>
                     </div>

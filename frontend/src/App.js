@@ -10,8 +10,10 @@ import './styles/App.css';
 function App() {
     return (
         <Router>
+            
             <div className="app-container">
                 <Navbar />
+              
                 <div className="main-content">
                     <Routes>
                         <Route path="/" element={<Dashboard />} />

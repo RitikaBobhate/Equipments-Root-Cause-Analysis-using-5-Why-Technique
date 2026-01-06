@@ -9,26 +9,42 @@ import numpy as np
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Optional, List
 from datetime import datetime
+from groq import Groq
+import os
+import json
 
-# ✅ CREATE APP
 app = FastAPI(title="Root Cause Analysis API", version="2.0")
 
 # Fix CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # React app
+    allow_origins=["*"],  # React app
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+# =====================================================
+# GROQ LLM INITIALIZATION
+# =====================================================
+groq_client = None
+try:
+    # Use your Groq API key directly
+    groq_client = Groq(api_key="")
+    print("✅ Groq LLM initialized (FREE)")
+except Exception as e:
+    print(f"⚠️  Groq not available: {e}")
+
 # Load model (updated for new pipeline)
 try:
-    pipeline = joblib.load("model_prod.pkl")
+    model_data = joblib.load("model_prod_v2.pkl")
+    pipeline = model_data["pipeline"]
+    label_encoder = model_data["label_encoder"]
     print("✅ Model loaded successfully")
 except Exception as e:
     print(f"❌ Error loading model: {e}")
     pipeline = None
+    label_encoder = None
 
 # Connect DB
 MONGO_URL = "mongodb+srv://RIL_sys:M(>$s8!p@rootcause-db.wayefpy.mongodb.net/?appName=rootcause-db"
@@ -84,12 +100,115 @@ class UpdateEquipmentData(BaseModel):
     date_reported: Optional[str] = None
 
 # =====================================================
+# GROQ LLM PREDICTION FUNCTION
+# =====================================================
+def predict_with_llm(description: str) -> dict:
+    """Use FREE Groq to predict root cause"""
+    
+    if not groq_client:
+        raise HTTPException(status_code=503, detail="Groq LLM not configured")
+    
+    root_causes = [
+        "Sensor/calibration failure",
+        "Component fatigue/corrosion",
+        "Inadequate lubrication",
+        "Electrical supply fluctuation",
+        "Incorrect installation/assembly",
+        "Bypass of safety interlock",
+        "Human/operator error",
+        "Contaminated fluid/particulate ingress",
+        "Design flaw in component",
+        "Lack of preventive maintenance"
+    ]
+    
+    prompt = f"""You are an expert in industrial equipment failure analysis.
+
+**Equipment Failure Description:**
+{description}
+
+**Available Root Causes:**
+{chr(10).join(f'{i+1}. {rc}' for i, rc in enumerate(root_causes))}
+
+**Instructions:**
+Analyze the failure description and select the MOST LIKELY root cause from the list above.
+
+**Response Format (JSON only):**
+{{
+  "root_cause": "exact name from list above",
+  "confidence": 85,
+  "reasoning": "Brief explanation (2-3 sentences)",
+  "key_indicators": ["keyword1", "keyword2"]
+}}
+
+Return ONLY valid JSON."""
+
+    try:
+        chat_completion = groq_client.chat.completions.create(
+            messages=[
+                {
+                    "role": "system",
+                    "content": "You are an expert industrial failure analyst. Always respond with valid JSON only."
+                },
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ],
+            model="llama-3.3-70b-versatile",
+            temperature=0.3,
+            max_tokens=1000,
+        )
+        
+             
+   
+        # Clean markdown if present
+        message = chat_completion.choices[0].message
+
+        if not message or not message.content:
+            raise HTTPException(status_code=500, detail="LLM returned empty response")
+
+        response_text = message.content.strip()
+
+        if "```json" in response_text:
+            response_text = response_text.split("```json")[1].split("```")[0].strip()
+        elif "```" in response_text:
+            response_text = response_text.split("```")[1].split("```")[0].strip()
+                
+        result = json.loads(response_text)
+                
+        return {
+            "prediction": result["root_cause"],
+            "confidence": result["confidence"] / 100,
+            "reasoning": result["reasoning"],
+            "key_indicators": result.get("key_indicators", []),
+            "method": "llm_free"
+        }
+        
+    except json.JSONDecodeError as e:
+        print(f"JSON error: {e}")
+        print(f"Raw response: {response_text}")
+        raise HTTPException(status_code=500, detail="LLM returned invalid JSON")
+    except Exception as e:
+        print(f"LLM error: {e}")
+        raise HTTPException(status_code=500, detail=f"LLM failed: {str(e)}")
+
+# =====================================================
 # BASIC ENDPOINTS
 # =====================================================
 
 @app.get("/")
 def test_backend():
-    return {"message": "Root Cause Analysis API", "status": "running", "version": "2.0"}
+    return {
+        "message": "Root Cause Analysis API",
+        "status": "running",
+        "version": "2.0",
+        "groq_llm": "available" if groq_client else "not configured",
+        "endpoints": {
+            "predictions": ["/predict", "/predict-enhanced", "/predict-hybrid", "/predict-llm"],
+            "analytics": ["/analytics/summary", "/analytics/plots", "/analytics/trends"],
+            "crud": ["/all-data", "/add-record", "/update-record/{id}", "/delete-record/{id}"]
+        }
+    }
 
 @app.get("/health")
 def health_check():
@@ -104,74 +223,145 @@ def health_check():
         "status": "healthy",
         "model": model_status,
         "database": db_status,
+        "groq_llm": "available" if groq_client else "not configured",
         "records": collection.count_documents({})
     }
 
 # =====================================================
-# PREDICTION ENDPOINTS (OLD & NEW)
+# PREDICTION ENDPOINTS
 # =====================================================
 
 # OLD prediction endpoint (simple text only)
-@app.post("/predict")
-def predict_root_cause_simple(input_data: InputText):
-    """Old endpoint for backward compatibility"""
-    if pipeline is None:
-        raise HTTPException(status_code=500, detail="Model not loaded")
-    
+
+# NEW: HYBRID ENDPOINT (ML + FREE Groq LLM) - RECOMMENDED
+@app.post("/predict-hybrid")
+def predict_hybrid(input_data: InputText):
+    """
+    HYBRID: Uses ML first (fast), falls back to FREE Groq LLM if confidence < 60%
+    """
     if not input_data.description or len(input_data.description.strip()) < 5:
         raise HTTPException(status_code=400, detail="Description too short")
     
+    ml_confidence = 0.0
+    
     try:
-        # Create a default record for old endpoint
-        record = {
-            "issue": input_data.description,
-            "environment": "clean",
-            "operating_load": "normal",
-            "recent_maintenance": "yes",
-            "severity": "medium",
-            "shift_time": "day",
-            "machine_age_bucket": "mid",
-            "maintenance_gap_days": "moderate",
-            "failure_frequency": "medium"
-        }
+        # Step 1: Try ML first
+        if pipeline is not None:
+            model_data = joblib.load("model_prod_v2.pkl")
+            pipeline_obj = model_data["pipeline"]
+            
+            text = f"issue: {input_data.description}"
+            record = {
+                "enhanced_text": text,
+                "severity": "medium",
+                "shift_time": "day",
+                "machine_age_bucket": "mid",
+                "maintenance_gap_days": "moderate",
+                "failure_frequency": "medium"
+            }
+            
+            if "equipment_type" in model_data["cat_cols"]:
+                record["equipment_type"] = "Unknown"
+            if "department" in model_data["cat_cols"]:
+                record["department"] = "Unknown"
+            
+            df_input = pd.DataFrame([record])
+            prediction = pipeline_obj.predict(df_input)[0]
+            probabilities = pipeline_obj.predict_proba(df_input)[0]
+            ml_confidence = float(np.max(probabilities))
+            
+            # If ML is confident, use it
+            if ml_confidence >= 0.60:
+                results = list(collection.find(
+                    {"root_cause": prediction},
+                    {"_id": 0, "why1": 1, "why2": 1, "why3": 1, "why4": 1, "why5": 1, "solution": 1}
+                ).limit(3))
+                
+                five_why = results[0] if results else {
+                    "why1": "No details available",
+                    "why2": "No details available",
+                    "why3": "No details available",
+                    "why4": "No details available",
+                    "why5": "No details available",
+                    "solution": "No solution documented"
+                }
+                
+                return {
+                    "prediction": prediction,
+                    "confidence": ml_confidence,
+                    "five_why": five_why,
+                    "method": "ml",
+                    "note": "High confidence ML prediction"
+                }
         
-        # Make prediction
-        df_input = pd.DataFrame([record])
-        prediction = pipeline.predict(df_input)[0]
+        # Step 2: Use FREE Groq LLM
+        print(f"ML confidence low ({ml_confidence:.2f}), using FREE Groq...")
         
-        # Fetch matching records
+        llm_result = predict_with_llm(input_data.description)
+        
         results = list(collection.find(
-            {"root_cause": prediction},
+            {"root_cause": llm_result["prediction"]},
             {"_id": 0, "why1": 1, "why2": 1, "why3": 1, "why4": 1, "why5": 1, "solution": 1}
         ).limit(3))
         
-        if not results:
-            five_why = {
-                "why1": "No details available",
-                "why2": "No details available",
-                "why3": "No details available",
-                "why4": "No details available",
-                "why5": "No details available",
-                "solution": "No solution documented"
-            }
-        else:
-            result = results[0]
-            five_why = {
-                "why1": result.get("why1", ""),
-                "why2": result.get("why2", ""),
-                "why3": result.get("why3", ""),
-                "why4": result.get("why4", ""),
-                "why5": result.get("why5", ""),
-                "solution": result.get("solution", "")
-            }
+        five_why = results[0] if results else {
+            "why1": "No details available",
+            "why2": "No details available",
+            "why3": "No details available",
+            "why4": "No details available",
+            "why5": "No details available",
+            "solution": "No solution documented"
+        }
         
         return {
-            "prediction": prediction,
-            "five_why": five_why
+            "prediction": llm_result["prediction"],
+            "confidence": llm_result["confidence"],
+            "five_why": five_why,
+            "method": "llm_free",
+            "reasoning": llm_result.get("reasoning", ""),
+            "key_indicators": llm_result.get("key_indicators", []),
+            "note": f"FREE Groq LLM (ML was {ml_confidence:.2f})"
         }
         
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Prediction error: {str(e)}")
+
+# NEW: PURE LLM ENDPOINT (ALWAYS USES GROQ)
+@app.post("/predict-llm")
+def predict_llm_only(input_data: InputText):
+    """Always uses FREE Groq LLM (most accurate)"""
+    if not input_data.description or len(input_data.description.strip()) < 5:
+        raise HTTPException(status_code=400, detail="Description too short")
+    
+    try:
+        llm_result = predict_with_llm(input_data.description)
+        
+        results = list(collection.find(
+            {"root_cause": llm_result["prediction"]},
+            {"_id": 0, "why1": 1, "why2": 1, "why3": 1, "why4": 1, "why5": 1, "solution": 1}
+        ).limit(3))
+        
+        five_why = results[0] if results else {
+            "why1": "No details available",
+            "why2": "No details available",
+            "why3": "No details available",
+            "why4": "No details available",
+            "why5": "No details available",
+            "solution": "No solution documented"
+        }
+        
+        return {
+            "prediction": llm_result["prediction"],
+            "confidence": llm_result["confidence"],
+            "five_why": five_why,
+            "method": "llm_free",
+            "reasoning": llm_result.get("reasoning", ""),
+            "key_indicators": llm_result.get("key_indicators", []),
+            "note": "FREE Groq LLM prediction"
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"LLM error: {str(e)}")
 
 # NEW prediction endpoint with all features
 @app.post("/predict-enhanced")
@@ -184,12 +374,16 @@ def predict_root_cause_enhanced(input_data: InputData):
         raise HTTPException(status_code=400, detail="Description too short")
     
     try:
+        # Load model data
+        model_data = joblib.load("model_prod_v2.pkl")
+        pipeline_obj = model_data["pipeline"]
+        
+        # Create enhanced text
+        text = f"issue: {input_data.description} severity: {input_data.severity}"
+        
         # Prepare input record
         record = {
-            "issue": input_data.description,
-            "environment": input_data.environment,
-            "operating_load": input_data.operating_load,
-            "recent_maintenance": input_data.recent_maintenance,
+            "enhanced_text": text,
             "severity": input_data.severity,
             "shift_time": input_data.shift_time,
             "machine_age_bucket": input_data.machine_age_bucket,
@@ -197,10 +391,16 @@ def predict_root_cause_enhanced(input_data: InputData):
             "failure_frequency": input_data.failure_frequency
         }
         
+        # Add equipment_type and department if they exist in model
+        if "equipment_type" in model_data["cat_cols"]:
+            record["equipment_type"] = "Unknown"
+        if "department" in model_data["cat_cols"]:
+            record["department"] = "Unknown"
+        
         # Make prediction
         df_input = pd.DataFrame([record])
-        prediction = pipeline.predict(df_input)[0]
-        probabilities = pipeline.predict_proba(df_input)[0]
+        prediction = pipeline_obj.predict(df_input)[0]
+        probabilities = pipeline_obj.predict_proba(df_input)[0]
         confidence = np.max(probabilities)
         
         # Fetch matching records from database
@@ -220,7 +420,6 @@ def predict_root_cause_enhanced(input_data: InputData):
                 "solution": "No solution documented"
             }
         else:
-            # Take the first matching result
             result = results[0]
             five_why = {
                 "why1": result.get("why1", ""),
@@ -237,7 +436,7 @@ def predict_root_cause_enhanced(input_data: InputData):
         top_indices = np.argsort(probabilities)[-3:][::-1]
         top_predictions = [
             {
-                "root_cause": pipeline.classes_[idx],
+                "root_cause": model_data["label_encoder"].classes_[idx],
                 "confidence": float(probabilities[idx])
             }
             for idx in top_indices
@@ -336,7 +535,6 @@ def get_analytics_summary():
         "equipment_types": equipment_types,
         "shift_times": shift_times,
         "age_buckets": age_buckets
-        
     }
 
 @app.get("/analytics/trends")
@@ -389,9 +587,6 @@ def get_root_cause_stats():
         rc_stats = {}
     
     return {"root_cause_stats": rc_stats}
-#
-# ANALYTICS PLOTS ENDPOINT
-# 
 
 @app.get("/analytics/plots")
 def get_analytics_plots():

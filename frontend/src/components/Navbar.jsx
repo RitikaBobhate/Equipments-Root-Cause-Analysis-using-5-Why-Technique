@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
-
+import Logo from './LOGO.png';
 const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
@@ -34,7 +34,7 @@ const Navbar = () => {
             <nav className="navbar gradient-navbar">
                 <div className="nav-container">
                     <div className="nav-logo">
-                        <img src="/LOGO.png" alt="Logo" height="70" />
+                        <img src={Logo} alt="Logo" className="logo-image" />
                         <h1>Equipments Root Cause Analyzer</h1>
                     </div>
                     
@@ -83,3 +83,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

@@ -5,6 +5,8 @@ from pymongo import MongoClient
 import plotly.io as pio
 import json
 from datetime import datetime
+from typing import Any
+
 
 pio.templates.default = "plotly_white"
 
@@ -25,10 +27,11 @@ def generate_dashboard_plots():
         if df.empty:
             return {"error": "No data available", "message": "DataFrame is empty"}
         
-        plots_data = {
+        plots_data: dict[str, Any] = {
             "charts": {},
             "stats": {},
             "data": {}
+        
         }
         
         # ========== 1. SEVERITY DISTRIBUTION ==========
@@ -217,7 +220,7 @@ def generate_simple_plots():
         
         df = pd.DataFrame(data)
         
-        response = {
+        response: dict[str, Any] = {
             "success": True,
             "timestamp": datetime.now().isoformat(),
             "charts": {}
@@ -318,18 +321,31 @@ if __name__ == "__main__":
     
     print("\n1. Testing generate_dashboard_plots():")
     result1 = generate_dashboard_plots()
-    if "error" in result1:
-        print(f"Error: {result1['error']}")
+    if isinstance(result1, dict) and not result1.get("error"):
+        charts = result1.get('charts') or {}
+        if isinstance(charts, dict):
+            print(f"Success! Generated charts: {list(charts.keys())}")
+        else:
+            print("Success! Generated charts (unexpected format)")
+
+        overall = result1.get('overall_stats') or {}
+        total_records = overall.get('total_records', 0) if isinstance(overall, dict) else 0
+        print(f"Total records: {total_records}")
     else:
-        print(f"Success! Generated charts: {list(result1.get('charts', {}).keys())}")
-        print(f"Total records: {result1.get('overall_stats', {}).get('total_records', 0)}")
+        err = result1.get('error') if isinstance(result1, dict) else str(result1)
+        print(f"Error: {err}")
     
     print("\n2. Testing generate_simple_plots():")
     result2 = generate_simple_plots()
-    if result2.get("success"):
-        print(f"Success! Generated {len(result2.get('charts', {}))} charts")
+    if isinstance(result2, dict) and result2.get("success"):
+        charts2 = result2.get('charts') or {}
+        if isinstance(charts2, dict):
+            print(f"Success! Generated {len(charts2)} charts")
+        else:
+            print("Success! Generated charts (unexpected format)")
     else:
-        print(f"Error: {result2.get('error')}")
+        err2 = result2.get('error') if isinstance(result2, dict) else str(result2)
+        print(f"Error: {err2}")
         
         
         
