@@ -10,7 +10,7 @@ MONGO_URL = "mongodb+srv://RIL_sys:M(>$s8!p@rootcause-db.wayefpy.mongodb.net/?ap
 client = MongoClient(MONGO_URL)
 db = client["fivewhy_db"]
 collection = db["equipment_data"]
-hf =""
+hf ="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"
 
 print("✅ Connected to MongoDB")
 

@@ -1,7 +1,7 @@
 /* DataManager.css */
 .data-manager-container {
     padding: 25px;
-    background: #f5f7fa;
+    background: #000000;
     min-height: 100vh;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #333; 
@@ -11,7 +11,7 @@
      text-align: center;
     margin-bottom: 40px;
     padding: 30px;
-    background: linear-gradient(135deg, #d57b7b 0%, #7e4832 100%);
+    background: linear-gradient(135deg, #241675 0%, #7e4832 100%);
     color: white;
     
 }

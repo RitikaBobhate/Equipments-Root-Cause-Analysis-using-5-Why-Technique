@@ -27,13 +27,26 @@ app.add_middleware(
 # =====================================================
 # GROQ LLM INITIALIZATION
 # =====================================================
-groq_client = None
-try:
-    # Use your Groq API key directly
-    groq_client = Groq(api_key="")
-    print("✅ Groq LLM initialized (FREE)")
-except Exception as e:
-    print(f"⚠️  Groq not available: {e}")
+# =====================================================
+# GROQ LLM INITIALIZATION
+# =====================================================
+
+from groq import Groq
+import os
+
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")  # preferred
+
+if not GROQ_API_KEY:
+    groq_client = None
+    print("⚠️ GROQ_API_KEY not set")
+else:
+    try:
+        groq_client = Groq(api_key="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")
+        print("✅ Groq LLM initialized")
+    except Exception as e:
+        groq_client = None
+        print(f"❌ Groq init failed: {e}")
+
 
 # Load model (updated for new pipeline)
 try:
@@ -58,6 +71,11 @@ collection = db["equipment_data"]
 
 class InputText(BaseModel):
     description: str
+    severity: str = "medium"
+    shift_time: str = "day"
+    machine_age_bucket: str = "mid"
+    maintenance_gap_days: str = "moderate"
+    failure_frequency: str = "medium"
 
 class InputData(BaseModel):
     description: str
@@ -84,6 +102,15 @@ class EquipmentData(BaseModel):
     department: str
     severity: str
     date_reported: str
+
+    shift_time: str = "day"
+    machine_age_bucket: str = "mid"
+    maintenance_gap_days: str = "moderate"
+    failure_frequency: str = "medium"
+    environment: str = "clean"
+    operating_load: str = "normal"
+    recent_maintenance: str = "yes"
+
 
 class UpdateEquipmentData(BaseModel):
     equipment_type: Optional[str] = None
@@ -130,7 +157,12 @@ def predict_with_llm(description: str) -> dict:
 {chr(10).join(f'{i+1}. {rc}' for i, rc in enumerate(root_causes))}
 
 **Instructions:**
-Analyze the failure description and select the MOST LIKELY root cause from the list above.
+IMPORTANT RULES:
+- This system is trained on historical industrial RCA data.
+- If the failure involves operator action, bypass, or procedural issues, prefer "Human/operator error".
+- Do NOT invent new failure mechanisms.
+- Select the root cause that best matches historical industrial RCA patterns.
+
 
 **Response Format (JSON only):**
 {{
@@ -253,11 +285,11 @@ def predict_hybrid(input_data: InputText):
             text = f"issue: {input_data.description}"
             record = {
                 "enhanced_text": text,
-                "severity": "medium",
-                "shift_time": "day",
-                "machine_age_bucket": "mid",
-                "maintenance_gap_days": "moderate",
-                "failure_frequency": "medium"
+                "severity": input_data.severity,
+                "shift_time": input_data.shift_time,
+                "machine_age_bucket": input_data.machine_age_bucket,
+                "maintenance_gap_days": input_data.maintenance_gap_days,
+                "failure_frequency": input_data.failure_frequency
             }
             
             if "equipment_type" in model_data["cat_cols"]:
@@ -271,7 +303,7 @@ def predict_hybrid(input_data: InputText):
             ml_confidence = float(np.max(probabilities))
             
             # If ML is confident, use it
-            if ml_confidence >= 0.60:
+            if ml_confidence >= 0.75:
                 results = list(collection.find(
                     {"root_cause": prediction},
                     {"_id": 0, "why1": 1, "why2": 1, "why3": 1, "why4": 1, "why5": 1, "solution": 1}
@@ -293,7 +325,26 @@ def predict_hybrid(input_data: InputText):
                     "method": "ml",
                     "note": "High confidence ML prediction"
                 }
-        
+        historical_match = collection.find_one(
+    {"issue": {"$regex": input_data.description, "$options": "i"}},
+    {"_id": 0}
+)
+
+        if historical_match:
+            return {
+                "prediction": historical_match["root_cause"],
+                "confidence": 0.95,
+                "five_why": {
+                    "why1": historical_match.get("why1"),
+                    "why2": historical_match.get("why2"),
+                    "why3": historical_match.get("why3"),
+                    "why4": historical_match.get("why4"),
+                    "why5": historical_match.get("why5"),
+                    "solution": historical_match.get("solution")
+                },
+                "method": "historical_match",
+                "note": "Matched known historical RCA case"
+            }
         # Step 2: Use FREE Groq LLM
         print(f"ML confidence low ({ml_confidence:.2f}), using FREE Groq...")
         
@@ -329,39 +380,91 @@ def predict_hybrid(input_data: InputText):
 # NEW: PURE LLM ENDPOINT (ALWAYS USES GROQ)
 @app.post("/predict-llm")
 def predict_llm_only(input_data: InputText):
-    """Always uses FREE Groq LLM (most accurate)"""
+    """Always uses FREE Groq LLM, but grounded with historical RCA"""
+
     if not input_data.description or len(input_data.description.strip()) < 5:
         raise HTTPException(status_code=400, detail="Description too short")
-    
+
     try:
+        # ===============================
+        # STEP 1: LLM Prediction
+        # ===============================
         llm_result = predict_with_llm(input_data.description)
-        
-        results = list(collection.find(
-            {"root_cause": llm_result["prediction"]},
-            {"_id": 0, "why1": 1, "why2": 1, "why3": 1, "why4": 1, "why5": 1, "solution": 1}
-        ).limit(3))
-        
-        five_why = results[0] if results else {
-            "why1": "No details available",
-            "why2": "No details available",
-            "why3": "No details available",
-            "why4": "No details available",
-            "why5": "No details available",
-            "solution": "No solution documented"
+
+        predicted_rc = llm_result["prediction"]
+
+        # ===============================
+        # STEP 2: ROOT CAUSE NORMALIZATION
+        # ===============================
+        ROOT_CAUSE_MAP = {
+            "Cooling system failure": "Human/operator error",
+            "Contaminated fluid/particulate ingress": "Human/operator error",
+            "Electrical supply fluctuation": "Electrical supply issue",
+            "Bypass of safety interlock": "Human/operator error",
+            "Inadequate lubrication": "Inadequate lubrication",
+            "Lack of preventive maintenance": "Lack of preventive maintenance"
         }
-        
+
+        normalized_rc = ROOT_CAUSE_MAP.get(predicted_rc, predicted_rc)
+
+        # ===============================
+        # STEP 3: DB LOOKUP (ROOT CAUSE)
+        # ===============================
+        results = list(collection.find(
+            {"root_cause": normalized_rc},
+            {
+                "_id": 0,
+                "why1": 1,
+                "why2": 1,
+                "why3": 1,
+                "why4": 1,
+                "why5": 1,
+                "solution": 1
+            }
+        ).limit(1))
+
+        # ===============================
+        # STEP 4: FALLBACK (ISSUE MATCH)
+        # ===============================
+        if not results:
+            results = list(collection.find(
+                {"issue": {"$regex": input_data.description, "$options": "i"}},
+                {
+                    "_id": 0,
+                    "why1": 1,
+                    "why2": 1,
+                    "why3": 1,
+                    "why4": 1,
+                    "why5": 1,
+                    "solution": 1
+                }
+            ).limit(1))
+
+        # ===============================
+        # STEP 5: GUARANTEED 5-WHY
+        # ===============================
+        five_why = results[0] if results else {
+            "why1": "Insufficient historical data",
+            "why2": "Insufficient historical data",
+            "why3": "Insufficient historical data",
+            "why4": "Insufficient historical data",
+            "why5": "Insufficient historical data",
+            "solution": "Perform detailed RCA and update knowledge base"
+        }
+
         return {
-            "prediction": llm_result["prediction"],
+            "prediction": normalized_rc,
             "confidence": llm_result["confidence"],
             "five_why": five_why,
-            "method": "llm_free",
+            "method": "llm_grounded",
             "reasoning": llm_result.get("reasoning", ""),
             "key_indicators": llm_result.get("key_indicators", []),
-            "note": "FREE Groq LLM prediction"
+            "note": "LLM prediction grounded using historical RCA data"
         }
-        
+
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"LLM error: {str(e)}")
+
 
 # NEW prediction endpoint with all features
 @app.post("/predict-enhanced")
@@ -471,14 +574,24 @@ def get_record(equipment_id: str):
 
 @app.post("/add-record")
 def add_record(record: EquipmentData):
-    # Check if equipment_id already exists
+    # Check duplicate
     existing = collection.find_one({"equipment_id": record.equipment_id})
     if existing:
         raise HTTPException(status_code=400, detail=f"Equipment ID {record.equipment_id} already exists")
-    
+
     record_dict = record.dict()
-    result = collection.insert_one(record_dict)
-    return {"message": "Record added successfully", "id": str(result.inserted_id)}
+
+    # Normalize date
+    try:
+        dt = datetime.strptime(record.date_reported, "%d-%m-%Y")
+        record_dict["date_reported"] = dt.strftime("%Y-%m-%d")
+    except:
+        pass  # if already ISO, ignore
+
+    collection.insert_one(record_dict)
+
+    return {"message": "Record added successfully"}
+
 
 @app.put("/update-record/{equipment_id}")
 def update_record(equipment_id: str, update_data: UpdateEquipmentData):

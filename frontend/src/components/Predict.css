@@ -2,7 +2,7 @@
 /* Predict.css */
 .predict-container {
     padding: 20px;
-    background: #f5f7fa;
+    background: #000000;
     min-height: 100vh;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -11,17 +11,21 @@
       text-align: center;
     margin-bottom: 40px;
     padding: 30px;
-    background: linear-gradient(135deg, #d57b7b 0%, #7e4832 100%);
+    background: linear-gradient(135deg, #57befa 0%, #ff500b 100%);
     color: white;
     
 }
 
 .predict-header h1 {
+    text-shadow: #f8f9fa 1px 1px 2px;
+    color: rgb(3, 3, 3);
     font-size: 32px;
     margin-bottom: 10px;
 }
 
 .predict-header p {
+    color : #000000;
+    text-decoration: solid;
     font-size: 16px;
     opacity: 0.9;
 }
@@ -33,7 +37,7 @@
 }
 
 .input-section {
-    background: white;
+    background: rgb(235, 234, 234);
     padding: 30px;
     border-radius: 15px;
     box-shadow: 0 8px 25px rgba(0,0,0,0.08);
@@ -128,7 +132,7 @@
 }
 
 .result-section h3 {
-    color: #2c3e50;
+    color: #efff0c;
     margin-bottom: 20px;
     font-size: 22px;
 }
@@ -141,7 +145,7 @@
 }
 
 .result-card h4 {
-    color: #555;
+    color: #ffffff;
     margin-bottom: 10px;
     font-size: 16px;
 }
@@ -149,7 +153,8 @@
 .root-cause {
     font-size: 20px;
     font-weight: bold;
-    color: #2c3e50;
+    color: #fafff9;
+    text-decoration: underline;
     margin: 0;
 }
 
@@ -158,13 +163,14 @@
 }
 
 .why-analysis h4 {
-    color: #555;
+    color: #ffffff;
     margin-bottom: 15px;
+    text-decoration: underline;
     font-size: 18px;
 }
 
 .why-steps {
-    background: #f8f9fa;
+    background: #92a0ad;
     border-radius: 10px;
     padding: 20px;
 }
@@ -185,7 +191,7 @@
 
 .step-number {
     background: #667eea;
-    color: white;
+    color: rgb(156, 98, 98);
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -200,11 +206,11 @@
 .why-step p {
     margin: 0;
     line-height: 1.5;
-    color: #333;
+    color: #000000;
 }
 
 .solution-section {
-    background: #e8f4fd;
+    background: #5a8029;
     padding: 20px;
     border-radius: 10px;
     margin-top: 20px;
@@ -212,13 +218,13 @@
 }
 
 .solution-section h4 {
-    color: #2980b9;
+    color: #030303;
     margin-bottom: 10px;
     font-size: 18px;
 }
 
 .solution-text {
-    color: #2c3e50;
+    color: #ff0b0b;
     font-size: 16px;
     line-height: 1.6;
     margin: 0;
@@ -252,7 +258,7 @@
 }
 
 .history-card {
-    background: #f8f9fa;
+    background: #000000;
     padding: 15px;
     border-radius: 10px;
     margin-bottom: 15px;
@@ -267,7 +273,7 @@
 }
 
 .history-header strong {
-    color: #2c3e50;
+    color: #000000;
     font-size: 14px;
 }
 

@@ -1,6 +1,6 @@
 
 .navbar {
-    background: linear-gradient(135deg, #2c3e50 0%, #1a2530 100%);
+    background: linear-gradient(135deg, #241506 0%, #1a2530 100%);
     color: white;
     padding: 0 25px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
@@ -8,10 +8,11 @@
     top: 0;
     z-index: 1000;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
 }
 
 .gradient-navbar {
-    background: linear-gradient(135deg, #16181d 0%, #3a3242 100%);
+    background: linear-gradient(135deg, #afb8e6 0%, #7e3d31 100%);
 }
 
 .nav-container {
@@ -21,6 +22,7 @@
     height: 120px;
     max-width: 1400px;
     margin: 0 auto;
+
 }
 
 .nav-logo {
@@ -34,6 +36,7 @@
     font-weight: 600;
     margin: 0;
     color: white;
+    text-underline-offset: initial;
 }
 
 .nav-links {

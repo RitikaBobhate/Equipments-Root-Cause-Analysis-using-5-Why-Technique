@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Dashboard from './components/Dashboard';
@@ -8,12 +8,12 @@ import DataManager from './components/DataManager';
 import './styles/App.css';
 
 function App() {
+
     return (
         <Router>
-            
             <div className="app-container">
                 <Navbar />
-              
+                
                 <div className="main-content">
                     <Routes>
                         <Route path="/" element={<Dashboard />} />
@@ -22,8 +22,11 @@ function App() {
                         <Route path="/manage" element={<DataManager />} />
                     </Routes>
                 </div>
+                
                 <footer className="app-footer">
-                    <p> &copy; {new Date().getFullYear()} Smart 5-Why Root Cause Predictor System | Designed with accessibility in mind</p>
+                    <p>
+                        &copy; {new Date().getFullYear()} Smart 5-Why Root Cause Predictor System | Designed with accessibility in mind
+                    </p>
                 </footer>
             </div>
         </Router>

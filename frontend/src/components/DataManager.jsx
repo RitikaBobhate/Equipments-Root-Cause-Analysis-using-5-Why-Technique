@@ -95,7 +95,7 @@ const DataManager = () => {
             solution: '',
             department: '',
             severity: 'High',
-            date_reported: new Date().StoISOString().split('T')[0]
+            date_reported: new Date().toISOString().split('T')[0]
         });
         setEditingRecord(null);
     };

@@ -105,7 +105,7 @@ preprocessor = ColumnTransformer(
         (
             "text",
             TfidfVectorizer(
-                max_features=60,        # 🔥 reduced from 150
+                max_features=120,       
                 min_df=2,
                 max_df=0.9,
                 ngram_range=(1, 2),

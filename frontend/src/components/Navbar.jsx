@@ -35,7 +35,8 @@ const Navbar = () => {
                 <div className="nav-container">
                     <div className="nav-logo">
                         <img src={Logo} alt="Logo" className="logo-image" />
-                        <h1>Equipments Root Cause Analyzer</h1>
+                        <h1 style={{position: 'fixed',top: '10%',left: '15%', textAlign: 'center', color:'#f5ba62ff'}}>Equipments Root Cause Analyzer</h1>
+
                     </div>
                     
                     {/* Desktop Navigation Links */}

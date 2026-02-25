@@ -32,7 +32,7 @@ const Analytics = () => {
                 data={plotData.data}
                 layout={plotData.layout}
                 config={{ responsive: true }}
-                style={{ width: '100%', height: '400px' }}
+                style={{ width: '100%', height: '500px' }}
             />
         );
     };
@@ -50,7 +50,7 @@ const Analytics = () => {
         <div className="analytics-container">
             <div className="analytics-header">
                 <h1>📈 Advanced Analytics Dashboard</h1>
-                <p>Interactive visualizations and insights from your data</p>
+                
             </div>
            
             <div className="analytics-tabs">
@@ -113,20 +113,13 @@ const Analytics = () => {
                 )}
 
                 {activeTab === 'trends' && (
-                    <div className="charts-grid">
+                    <div className="full-width-chart">
                         <div className="chart-card">
                             <h3>Issue Trends Over Time</h3>
                             {renderPlot(plots.trend_chart)}
                         </div>
-                        <div className="chart-card">
-                            <h3>Severity Trends</h3>
-                            {/* Add severity trend chart */}
-                            <div className="placeholder-chart">
-                                <p>Severity trend visualization would appear here</p>
-                                {renderPlot(plots.severity_trend_chart)}
-                                
-                            </div>
-                        </div>
+                       
+                        
                     </div>
                 )}
 
