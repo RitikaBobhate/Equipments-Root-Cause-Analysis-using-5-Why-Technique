@@ -13,6 +13,11 @@ from groq import Groq
 import os
 import json
 
+from auth import (
+    UserCreate, UserLogin, get_password_hash, verify_password,
+    create_access_token, get_current_user, users_collection
+)
+from datetime import datetime
 app = FastAPI(title="Root Cause Analysis API", version="2.0")
 
 # Fix CORS
@@ -893,4 +898,7 @@ def export_to_csv():
 # Favicon endpoint
 @app.get("/favicon.ico")
 async def favicon():
-    return {"message": "No favicon"}
+    return {"message": "No favicon"}\
+    
+
+
