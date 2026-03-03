@@ -38,7 +38,9 @@ app.add_middleware(
 
 from groq import Groq
 import os
+from dotenv import load_dotenv
 
+load_dotenv()
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")  # preferred
 
 if not GROQ_API_KEY:
@@ -46,7 +48,7 @@ if not GROQ_API_KEY:
     print("⚠️ GROQ_API_KEY not set")
 else:
     try:
-        groq_client = Groq(api_key="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")
+        groq_client = Groq(api_key=os.getenv("GROQ_API_KEY"))
         print("✅ Groq LLM initialized")
     except Exception as e:
         groq_client = None

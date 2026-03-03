@@ -2,7 +2,11 @@ import json
 import os
 from pymongo import MongoClient
 from datetime import datetime
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
+hf = os.getenv("HUGGINGFACE_TOKEN")
 
 
 # MongoDB connection (using your existing connection)
@@ -10,7 +14,7 @@ MONGO_URL = "mongodb+srv://RIL_sys:M(>$s8!p@rootcause-db.wayefpy.mongodb.net/?ap
 client = MongoClient(MONGO_URL)
 db = client["fivewhy_db"]
 collection = db["equipment_data"]
-hf ="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"
+
 
 print("✅ Connected to MongoDB")
 
