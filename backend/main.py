@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import Depends, FastAPI, HTTPException
 from fastapi.responses import FileResponse
 from pathlib import Path
 from pydantic import BaseModel
@@ -17,7 +17,7 @@ from auth import (
     UserCreate, UserLogin, get_password_hash, verify_password,
     create_access_token, get_current_user, users_collection
 )
-from datetime import datetime
+
 app = FastAPI(title="Root Cause Analysis API", version="2.0")
 
 # Fix CORS
@@ -65,7 +65,7 @@ except Exception as e:
     label_encoder = None
 
 # Connect DB
-MONGO_URL = "mongodb+srv://RIL_sys:M(>$s8!p@rootcause-db.wayefpy.mongodb.net/?appName=rootcause-db"
+MONGO_URL = "mongodb+srv://RIL_sys:M(>$s8!p@rootcause-db.wayefpy.mongodb.net/fivewhy_db?retryWrites=true&w=majority&ssl=true&tls=true&tlsAllowInvalidCertificates=true"
 client = MongoClient(MONGO_URL)
 db = client["fivewhy_db"]
 collection = db["equipment_data"]
@@ -263,7 +263,110 @@ def health_check():
         "groq_llm": "available" if groq_client else "not configured",
         "records": collection.count_documents({})
     }
+# =====================================================
+# AUTHENTICATION ENDPOINTS - ADD THESE
+# =====================================================
 
+@app.post("/auth/register")
+def register(user: UserCreate):
+    """Register a new user"""
+    
+    # Check if username already exists
+    existing = users_collection.find_one({"username": user.username})
+    if existing:
+        raise HTTPException(status_code=400, detail="Username already exists")
+    
+    # Check if email already exists
+    existing_email = users_collection.find_one({"email": user.email})
+    if existing_email:
+        raise HTTPException(status_code=400, detail="Email already exists")
+    
+    # Create new user
+    new_user = {
+        "username": user.username,
+        "email": user.email,
+        "full_name": user.full_name,
+        "hashed_password": get_password_hash(user.password),
+        "role": user.role,
+        "created_at": datetime.utcnow().isoformat()
+    }
+    
+    # Insert into database
+    users_collection.insert_one(new_user)
+    
+    return {"message": "User created successfully", "username": user.username}
+
+
+@app.post("/auth/login")
+def login(user_data: UserLogin):
+    """Login and get access token"""
+    
+    # Find user by username
+    user = users_collection.find_one({"username": user_data.username})
+    
+    # Check if user exists and password is correct
+    if not user or not verify_password(user_data.password, user["hashed_password"]):
+        raise HTTPException(
+            status_code=401, 
+            detail="Incorrect username or password"
+        )
+    
+    # Create access token
+    access_token = create_access_token(
+        data={"sub": user["username"], "role": user["role"]}
+    )
+    
+    # Return token and user info
+    return {
+        "access_token": access_token,
+        "token_type": "bearer",
+        "user": {
+            "username": user["username"],
+            "full_name": user["full_name"],
+            "role": user["role"]
+        }
+    }
+
+
+@app.get("/auth/me")
+def get_me(current_user = Depends(get_current_user)):
+    """Get current logged in user info"""
+    return current_user
+
+
+@app.post("/auth/change-password")
+def change_password(
+    password_data: dict,
+    current_user = Depends(get_current_user)
+):
+    """Change user password"""
+    current = password_data.get("current_password")
+    new = password_data.get("new_password")
+    
+    if not current or not new:
+        raise HTTPException(status_code=400, detail="Missing passwords")
+    
+    # Get user from database
+    user = users_collection.find_one({"username": current_user["username"]})
+    
+    # Verify user exists
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    # Verify current password
+    if not verify_password(current, user["hashed_password"]):
+        raise HTTPException(status_code=401, detail="Current password is incorrect")
+    
+    # Hash new password
+    new_hashed = get_password_hash(new)
+    
+    # Update in database
+    users_collection.update_one(
+        {"username": current_user["username"]},
+        {"$set": {"hashed_password": new_hashed}}
+    )
+    
+    return {"message": "Password changed successfully"}
 # =====================================================
 # PREDICTION ENDPOINTS
 # =====================================================
@@ -566,9 +669,13 @@ def predict_root_cause_enhanced(input_data: InputData):
 # =====================================================
 
 @app.get("/all-data")
-def get_all_data():
+def get_all_data(current_user = Depends(get_current_user)):  # ADD THIS
     data = list(collection.find({}, {"_id": 0}))
-    return {"data": data, "count": len(data)}
+    return {
+        "data": data, 
+        "count": len(data),
+        "user": current_user["username"]  # Shows who accessed
+    }
 
 @app.get("/record/{equipment_id}")
 def get_record(equipment_id: str):

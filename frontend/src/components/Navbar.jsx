@@ -1,16 +1,20 @@
+// frontend/src/components/Navbar.jsx
+
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import './Navbar.css';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import Logo from './LOGO.png';
+import './Navbar.css';
+
 const Navbar = () => {
+    const { user, logout, isAuthenticated } = useAuth();
+    const navigate = useNavigate();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
-    // Check screen size on resize
     useEffect(() => {
         const handleResize = () => {
             setIsMobile(window.innerWidth <= 768);
-            // Close mobile menu when resizing to desktop
             if (window.innerWidth > 768) {
                 setIsMobileMenuOpen(false);
             }
@@ -19,7 +23,6 @@ const Navbar = () => {
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
-        
 
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -29,28 +32,37 @@ const Navbar = () => {
         setIsMobileMenuOpen(false);
     };
 
+    const handleLogout = () => {
+        logout();
+        navigate('/login');
+        closeMobileMenu();
+    };
+
+    if (!isAuthenticated) return null;
+
     return (
         <>
             <nav className="navbar gradient-navbar">
                 <div className="nav-container">
                     <div className="nav-logo">
                         <img src={Logo} alt="Logo" className="logo-image" />
-                        <h1 style={{position: 'fixed',top: '10%',left: '15%', textAlign: 'center', color:'#f5ba62ff'}}>Equipments Root Cause Analyzer</h1>
-
+                        <h1>Equipments Root Cause Analyzer</h1>
                     </div>
                     
-                    {/* Desktop Navigation Links */}
                     <div className="nav-links">
-                        <Link to="/">Dashboard</Link>
-                        <Link to="/predict">Predict</Link>
-                        <Link to="/analytics">Analytics</Link>
-                        <Link to="/manage">Manage Data</Link>
+                        <Link to="/" onClick={closeMobileMenu}>Dashboard</Link>
+                        <Link to="/predict" onClick={closeMobileMenu}>Predict</Link>
+                        <Link to="/analytics" onClick={closeMobileMenu}>Analytics</Link>
+                        <Link to="/manage" onClick={closeMobileMenu}>Manage Data</Link>
                     </div>
                     
-                    {/* Desktop User Info */}
+                    <div className="nav-user">
+                        <span>👤 {user?.full_name} ({user?.role})</span>
+                        <button onClick={handleLogout} className="logout-btn">
+                            🚪 Logout
+                        </button>
+                    </div>
                     
-                    
-                    {/* Hamburger Menu Icon (Mobile Only) */}
                     {isMobile && (
                         <div 
                             id="hamburger" 
@@ -65,7 +77,6 @@ const Navbar = () => {
                 </div>
             </nav>
             
-            {/* Mobile Menu Overlay */}
             {isMobile && (
                 <div className={`mobile-overlay ${isMobileMenuOpen ? 'open' : ''}`}>
                     <div className="mobile-links">
@@ -73,9 +84,27 @@ const Navbar = () => {
                         <Link to="/predict" onClick={closeMobileMenu}>Predict</Link>
                         <Link to="/analytics" onClick={closeMobileMenu}>Analytics</Link>
                         <Link to="/manage" onClick={closeMobileMenu}>Manage Data</Link>
+                        
+                        <Link to="/change-password" className="change-password-link">
+                            🔑 Change Password
+                        </Link>
                     </div>
-                    <div style={{ marginTop: '30px', color: 'white', fontSize: '18px' }}>
-                        👤 Admin
+                    <div style={{ marginTop: '30px', color: 'white', fontSize: '18px', textAlign: 'center' }}>
+                        👤 {user?.full_name} ({user?.role})
+                        <button 
+                            onClick={handleLogout}
+                            style={{
+                                marginLeft: '10px',
+                                padding: '5px 15px',
+                                background: '#ff4444',
+                                color: 'white',
+                                border: 'none',
+                                borderRadius: '5px',
+                                cursor: 'pointer'
+                            }}
+                        >
+                            Logout
+                        </button>
                     </div>
                 </div>
             )}
@@ -84,4 +113,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
