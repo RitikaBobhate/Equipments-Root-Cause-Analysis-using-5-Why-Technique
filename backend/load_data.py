@@ -9,7 +9,7 @@ load_dotenv()
 hf = os.getenv("HUGGINGFACE_TOKEN")
 
 
-# MongoDB connection (using your existing connection)
+
 MONGO_URL = "mongodb+srv://RIL_sys:M(>$s8!p@rootcause-db.wayefpy.mongodb.net/?appName=rootcause-db"
 client = MongoClient(MONGO_URL)
 db = client["fivewhy_db"]
@@ -73,7 +73,7 @@ try:
     collection.delete_many({})
     print("Inserting new data...")
     
-    # Insert in batches to avoid timeout
+
     batch_size = 50
     for i in range(0, len(transformed_data), batch_size):
         batch = transformed_data[i:i + batch_size]
@@ -82,7 +82,7 @@ try:
     
     print(f"✅ Data inserted successfully! {len(transformed_data)} records loaded.")
     
-    # Show some stats
+
     print(f"\n📊 Database Statistics:")
     print(f"Total records: {collection.count_documents({})}")
     print(f"Unique root causes: {len(collection.distinct('root_cause'))}")
@@ -96,8 +96,7 @@ try:
         count = collection.count_documents({"department": dept})
         print(f"  {dept}: {count}")
         
-    
-    # Show a sample record
+
     sample = collection.find_one()
     if sample:
         print(f"\n📋 Sample Record:")
