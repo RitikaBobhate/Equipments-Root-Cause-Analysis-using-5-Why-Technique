@@ -6,7 +6,7 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-hf = os.getenv("HUGGINGFACE_TOKEN")
+hf = os.getenv("HUGGINGFACE_TOKEN_XXX")
 
 
 
