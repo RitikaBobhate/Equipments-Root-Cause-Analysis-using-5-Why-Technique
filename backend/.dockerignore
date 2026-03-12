@@ -1,0 +1,16 @@
+# backend/.dockerignore
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.env
+.git
+.gitignore
+README.md
+.vscode
+.idea
+*.log
+model_prod_v2.pkl  # Optional: exclude if too large

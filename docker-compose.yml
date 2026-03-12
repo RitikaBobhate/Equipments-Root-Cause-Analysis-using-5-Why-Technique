@@ -1,0 +1,53 @@
+# docker-compose.yml
+
+
+services:
+  # MongoDB service
+  mongodb:
+    image: mongo:6
+    container_name: rca-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - rca-network
+    restart: unless-stopped
+
+  # Backend service
+  backend:
+    build: ./backend
+    container_name: rca-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - MONGO_URL=mongodb://mongodb:27017
+      - GROQ_API_KEY=${GROQ_API_KEY}
+    depends_on:
+      - mongodb
+    networks:
+      - rca-network
+    volumes:
+      - ./backend:/app  # For development (remove in production)
+    restart: unless-stopped
+
+  # Frontend service
+  frontend:
+    build: ./frontend
+    container_name: rca-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - rca-network
+    restart: unless-stopped
+
+# Networks
+networks:
+  rca-network:
+    driver: bridge
+
+# Volumes
+volumes:
+  mongodb_data:
